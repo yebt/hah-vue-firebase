@@ -25,7 +25,7 @@ import { RouterLink } from 'vue-router'
 
 <style scoped>
 .app-header {
-  @apply border-b border-gray-200 bg-white/90 backdrop-blur-sm sticky top-0 z-50;
+  @apply sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-sm;
 }
 
 .app-header__inner {
@@ -33,15 +33,15 @@ import { RouterLink } from 'vue-router'
 }
 
 .app-header__brand {
-  @apply flex items-center gap-2 font-bold text-lg text-gray-900 no-underline shrink-0;
+  @apply flex items-center gap-2 font-semibold text-base text-slate-900 no-underline shrink-0;
 }
 
 .app-header__logo {
-  @apply text-indigo-600 text-xl leading-none;
+  @apply flex h-7 w-7 items-center justify-center rounded-sm border border-indigo-300 bg-indigo-50 text-indigo-700 text-sm leading-none;
 }
 
 .app-header__name {
-  @apply tracking-wide;
+  @apply font-mono text-sm tracking-[0.2em];
 }
 
 .app-header__nav {

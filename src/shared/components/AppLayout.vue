@@ -29,7 +29,7 @@ defineProps<{
 
 <style scoped>
 .app-layout {
-  @apply min-h-screen flex flex-col bg-gray-50;
+  @apply min-h-screen flex flex-col bg-slate-50;
 }
 
 .app-layout__main {
@@ -37,7 +37,7 @@ defineProps<{
 }
 
 .app-layout__footer {
-  @apply border-t border-gray-100 bg-white;
+  @apply border-t border-slate-200 bg-white;
 }
 
 .app-layout__footer-inner {

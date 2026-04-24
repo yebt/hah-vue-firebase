@@ -6,21 +6,25 @@ const features = [
     icon: 'i-lucide-check-circle',
     title: 'Positive habits',
     description: 'Track simple or countable habits with streaks and goal highlights.',
+    accent: 'emerald',
   },
   {
     icon: 'i-lucide-shield-off',
     title: 'Negative habits',
     description: 'Log occurrences of habits you want to reduce over time.',
+    accent: 'rose',
   },
   {
     icon: 'i-lucide-bar-chart-2',
     title: 'Analytics',
     description: 'Full dashboard with progress, history, and trend summaries.',
+    accent: 'sky',
   },
   {
     icon: 'i-lucide-wifi-off',
     title: 'Offline-first',
     description: 'Works without a connection and syncs changes when back online.',
+    accent: 'amber',
   },
 ] as const
 </script>
@@ -57,7 +61,7 @@ const features = [
       <div class="features__inner">
         <h2 class="features__heading">What's planned</h2>
         <ul class="features__grid" role="list">
-          <li v-for="f in features" :key="f.title" class="feature-card">
+          <li v-for="f in features" :key="f.title" class="feature-card" :class="`feature-card--${f.accent}`">
             <span class="feature-card__icon" aria-hidden="true">
               <i :class="f.icon" />
             </span>
@@ -81,16 +85,16 @@ const features = [
 }
 
 .hero__badge {
-  @apply inline-flex items-center text-xs font-medium px-3 py-1 rounded-full
-    bg-amber-100 text-amber-700 border border-amber-200;
+  @apply inline-flex items-center text-xs font-medium px-3 py-1 rounded-sm
+    bg-sky-100 text-sky-800 border border-sky-300 font-mono tracking-wide;
 }
 
 .hero__title {
-  @apply text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight;
+  @apply text-4xl sm:text-5xl font-bold text-slate-900 leading-tight;
 }
 
 .hero__subtitle {
-  @apply text-lg text-gray-500 max-w-xl;
+  @apply text-lg text-slate-600 max-w-xl;
 }
 
 .hero__cta {
@@ -98,17 +102,17 @@ const features = [
 }
 
 .hero__cta-note {
-  @apply text-xs text-gray-400;
+  @apply text-xs text-slate-500 font-mono;
 }
 
 /* Shared button */
 .btn {
-  @apply inline-flex items-center px-5 py-2.5 rounded-lg font-semibold text-sm
+  @apply inline-flex items-center px-5 py-2.5 rounded-sm font-semibold text-sm
     transition-colors focus-visible:outline-none focus-visible:ring-2;
 }
 
 .btn--primary {
-  @apply bg-indigo-600 text-white hover:bg-indigo-700 focus-visible:ring-indigo-500
+  @apply bg-indigo-600 text-white hover:bg-indigo-700 focus-visible:ring-indigo-400
     disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
@@ -122,7 +126,7 @@ const features = [
 }
 
 .features__heading {
-  @apply text-center text-sm font-semibold uppercase tracking-widest text-gray-400 mb-8;
+  @apply text-center text-sm font-semibold uppercase tracking-widest text-slate-500 mb-8 font-mono;
 }
 
 .features__grid {
@@ -131,21 +135,35 @@ const features = [
 
 /* Feature card */
 .feature-card {
-  @apply bg-white rounded-xl border border-gray-100 p-5 flex flex-col gap-3
+  @apply bg-white rounded-sm border border-slate-200 p-5 flex flex-col gap-3
     shadow-sm hover:shadow-md transition-shadow;
 }
 
 .feature-card__icon {
-  @apply w-9 h-9 rounded-lg bg-indigo-50 flex items-center justify-center
-    text-indigo-600 text-xl;
+  @apply w-9 h-9 rounded-sm flex items-center justify-center text-xl border;
 }
 
 .feature-card__title {
-  @apply font-semibold text-gray-800 text-sm;
+  @apply font-semibold text-slate-900 text-sm font-mono;
 }
 
 .feature-card__desc {
-  @apply text-sm text-gray-500 leading-relaxed;
+  @apply text-sm text-slate-600 leading-relaxed;
+}
+
+.feature-card--emerald .feature-card__icon {
+  @apply bg-emerald-100 text-emerald-700 border-emerald-300;
+}
+
+.feature-card--rose .feature-card__icon {
+  @apply bg-rose-100 text-rose-700 border-rose-300;
+}
+
+.feature-card--sky .feature-card__icon {
+  @apply bg-sky-100 text-sky-700 border-sky-300;
+}
+
+.feature-card--amber .feature-card__icon {
+  @apply bg-amber-100 text-amber-700 border-amber-300;
 }
 </style>
-
