@@ -39,3 +39,4 @@ __screenshots__/
 *.timestamp-*-*.mjs
 typed-router.d.ts
 .env
+habitflow_landing_v2_responsive.html

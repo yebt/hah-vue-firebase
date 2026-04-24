@@ -181,6 +181,7 @@ Los grids internos usan `border-right` entre columnas en lugar de `gap`.
 - Links: mono 11–12px, `--ink2`, hover cambia a `--ink` + `--bg` de fondo
 - Separadores verticales: `border-right: 1px solid var(--border)` entre zonas
 - Acciones: `border-left` para separar del nav
+- **Responsive (< 600px):** se ocultan los links de nav y el botón "Sign in". Solo permanecen brand + botón CTA principal.
 
 ### Botones
 

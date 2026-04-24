@@ -135,4 +135,19 @@ import { RouterLink } from 'vue-router'
   opacity: 0.45;
   cursor: not-allowed;
 }
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 600px) {
+  .links {
+    display: none;
+  }
+
+  .btn-signin {
+    display: none;
+  }
+
+  .actions {
+    padding: 0 12px;
+  }
+}
 </style>
