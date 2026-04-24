@@ -7,7 +7,7 @@ import { PiniaColada } from '@pinia/colada'
 
 import App from './App.vue'
 import router from './router'
-import { VueFire } from 'vuefire'
+import { VueFire, VueFireAuth } from 'vuefire'
 import { firebaseApp } from './app/infrastructure/firebase'
 
 const app = createApp(App)
@@ -16,6 +16,10 @@ app.use(createPinia())
 app.use(PiniaColada, {})
 app.use(VueFire, {
   firebaseApp,
+  modules: [
+    // we will see other modules later on
+    VueFireAuth(),
+  ],
 })
 app.use(router)
 

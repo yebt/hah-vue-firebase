@@ -18,8 +18,8 @@ import { RouterLink } from 'vue-router'
 
       <div class="actions">
         <slot name="actions">
-          <button class="btn-signin" disabled title="Auth coming soon">Sign in</button>
-          <button class="btn-cta" disabled title="Auth coming soon">Get started</button>
+          <RouterLink to="/login" class="btn-signin">Sign in</RouterLink>
+          <RouterLink to="/login" class="btn-cta">Open app</RouterLink>
         </slot>
       </div>
     </div>
@@ -98,6 +98,9 @@ import { RouterLink } from 'vue-router'
 }
 
 .btn-signin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   height: 28px;
   padding: 0 12px;
   font-family: var(--mono);
@@ -117,6 +120,9 @@ import { RouterLink } from 'vue-router'
 }
 
 .btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   height: 28px;
   padding: 0 14px;
   font-family: var(--mono);

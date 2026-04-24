@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
 import AppLayout from '@/shared/components/AppLayout.vue'
 
 /* ── Fake streak grid (14 weeks × 7 days) ─────────────── */
@@ -47,10 +48,10 @@ const steps = [
             Positive habits, negative habits, flexible schedules — all offline-ready.
           </p>
           <div class="hero-actions">
-            <button class="btn-white" disabled title="Auth coming soon">
-              Get started <i class="i-lucide-arrow-right" />
-            </button>
-            <span class="hero-note">No account required to demo (coming soon)</span>
+            <RouterLink to="/login" class="btn-white">
+              Sign in with email <i class="i-lucide-arrow-right" />
+            </RouterLink>
+            <span class="hero-note">Self-registration and Google sign-in are coming next.</span>
           </div>
         </div>
 
@@ -109,7 +110,7 @@ const steps = [
         <span class="ribbon-dot" />
         <span class="ribbon-item"><i class="i-lucide-smartphone" /> PWA installable</span>
         <span class="ribbon-dot" />
-        <span class="ribbon-item"><i class="i-lucide-lock" /> Auth with Google</span>
+        <span class="ribbon-item"><i class="i-lucide-mail" /> Email sign-in</span>
         <span class="ribbon-dot" />
         <span class="ribbon-item"><i class="i-lucide-code-2" /> Vue 3 + TypeScript</span>
       </div>
@@ -161,10 +162,10 @@ const steps = [
             </span>
           </div>
         </div>
-        <button class="btn-cta" disabled title="Auth coming soon">
+        <RouterLink to="/login" class="btn-cta">
           <i class="i-lucide-log-in" />
-          Create your account
-        </button>
+          Sign in with email
+        </RouterLink>
       </div>
     </section>
 
@@ -238,6 +239,7 @@ const steps = [
 .btn-white {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   height: 36px;
   padding: 0 18px;
@@ -564,6 +566,7 @@ const steps = [
 .btn-cta {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   height: 38px;
   padding: 0 20px;

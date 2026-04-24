@@ -11,7 +11,7 @@ defineProps<{
   <div class="layout">
     <div class="wip-banner">
       <i class="i-lucide-triangle-alert" />
-      HAH is a work in progress — features are incomplete and auth is not yet available.
+      HAH is work in progress — some features may be unavailable while the app is still being built.
     </div>
 
     <AppHeader v-if="!bare">
@@ -51,15 +51,16 @@ defineProps<{
   align-items: center;
   justify-content: center;
   gap: 8px;
-  height: 36px;
+  min-height: 36px;
   background: var(--amber-bg);
   border-bottom: 1px solid var(--amber-mid);
   color: var(--amber);
   font-family: var(--mono);
   font-size: 11px;
   font-weight: 500;
-  padding: 0 16px;
+  padding: 8px 16px;
   text-align: center;
+  line-height: 1.5;
 }
 
 .main {
@@ -114,5 +115,25 @@ defineProps<{
 
 .footer-links a:hover {
   color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .footer-inner {
+    height: auto;
+    min-height: 44px;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    gap: 10px 0;
+  }
+
+  .footer-copy {
+    flex-basis: 100%;
+    order: 3;
+  }
+
+  .footer-links {
+    width: 100%;
+  }
 }
 </style>

@@ -4,14 +4,15 @@ Implementation backlog for `SPECS.md`, grouped by module and ordered for sequent
 
 ## 1. Project foundation
 
-- [ ] Set up Vue 3, file-based routing, Pinia, Pinia Colada, UnoCSS, Lucide icons, Wind4 / Tailwind 4, Firebase, VueFire, and Vite PWA.
-- [ ] Create the base app layout, navigation shell, and shared UI primitives.
-- [ ] Configure environment variables and Firebase app initialization.
-- [ ] Add shared state, query, and API/service conventions.
+- [x] Set up Vue 3, file-based routing, Pinia, Pinia Colada, UnoCSS, Lucide icons, Wind4 / Tailwind 4, Firebase, VueFire, and Vite PWA.
+- [x] Create the base app layout, navigation shell, and shared UI primitives.
+- [x] Configure environment variables and Firebase app initialization.
+- [x] Add shared state, query, and API/service conventions.
 
 ## 2. Authentication and access control
 
-- [ ] Configure email/password login.
+- [x] Configure email/password login.
+- [x] Add an email/password sign-in page with auth-state feedback and sign-out.
 - [ ] Configure Google sign-in.
 - [ ] Implement self-registration.
 - [ ] Add post-signup admin activation flow.
@@ -83,6 +84,8 @@ Implementation backlog for `SPECS.md`, grouped by module and ordered for sequent
 
 ## 11. Polish and release readiness
 
+- [x] Define and document the visual design system in `DESIGN.md`.
+- [x] Build the unauthenticated landing page and responsive marketing navigation.
 - [ ] Improve loading, empty, and error states.
 - [ ] Add accessibility and keyboard support checks.
 - [ ] Polish app-wide UX and visual consistency.

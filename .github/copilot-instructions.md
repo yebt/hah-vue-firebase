@@ -38,6 +38,7 @@
 - Keep Firebase-specific code inside `src/app/infrastructure/firebase/` instead of scattering it through features.
 - Use the `@` alias for imports from `src/`.
 - Keep feature code grouped by domain rather than by technical layer when the module grows.
+- Prefer module-local structure under `src/modules/<domain>/` with `services/` for remote/API calls, `stores/` for Pinia session/UI state, and `lib/` for pure helpers.
 - Respect the formatting style enforced by `oxfmt` (`singleQuote: true`, `semi: false`).
 - Let the router and typed-route generated files manage route typing; avoid manual edits to generated route metadata.
 
