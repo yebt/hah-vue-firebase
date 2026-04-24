@@ -40,3 +40,17 @@
 - Keep feature code grouped by domain rather than by technical layer when the module grows.
 - Respect the formatting style enforced by `oxfmt` (`singleQuote: true`, `semi: false`).
 - Let the router and typed-route generated files manage route typing; avoid manual edits to generated route metadata.
+
+## Design
+
+All UI work must follow `DESIGN.md`. Key rules:
+
+- **Fonts:** `Geist Mono` for nav, labels, metrics, chips, hero titles. `Geist` for body/descriptions.
+- **Colors:** Always use CSS variables (`--ink`, `--bg`, `--border`, semantic variants). Never hardcode hex in components.
+- **Semantic color discipline:** `amber` = warning/WIP, `green` = success/streak, `red` = error/negative, `blue` = info. Never use semantic colors just for decoration.
+- **Border radius:** max 3px (panels), 2px (buttons/chips/icons), 1px (small cells). Never `rounded-lg` or higher.
+- **No shadows:** Section separation is done with `border-bottom: 1px solid var(--border)`. Grid columns use `border-right` as dividers — not `gap` + cards.
+- **Heights:** Nav = 44px, footer = 44px, ribbon = 44px, section eyebrow = 40px. Keep chrome at fixed heights.
+- **Section padding:** 56px vertical for content sections, 72px for hero.
+- **No decorative animations, gradients, or illustrations.**
+- Reference implementation: `src/pages/index.vue` (landing page) and `src/shared/components/AppHeader.vue`.
