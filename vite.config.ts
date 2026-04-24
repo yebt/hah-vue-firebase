@@ -5,10 +5,12 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import UnoCSS from 'unocss/vite'
 import VueRouter from 'vue-router/vite'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
+    VitePWA({ registerType: 'autoUpdate' }),
     VueRouter(),
     vue(),
     UnoCSS(),
