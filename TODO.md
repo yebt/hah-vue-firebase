@@ -1,0 +1,90 @@
+# TODO
+
+Implementation backlog for `SPECS.md`, grouped by module and ordered for sequential delivery.
+
+## 1. Project foundation
+
+- [ ] Set up Vue 3, file-based routing, Pinia, Pinia Colada, UnoCSS, Lucide icons, Wind4 / Tailwind 4, Firebase, VueFire, and Vite PWA.
+- [ ] Create the base app layout, navigation shell, and shared UI primitives.
+- [ ] Configure environment variables and Firebase app initialization.
+- [ ] Add shared state, query, and API/service conventions.
+
+## 2. Authentication and access control
+
+- [ ] Configure email/password login.
+- [ ] Configure Google sign-in.
+- [ ] Implement self-registration.
+- [ ] Add post-signup admin activation flow.
+- [ ] Add auth state persistence and session restoration.
+- [ ] Implement role-based access for admin and regular users.
+- [ ] Add route guards and protected layouts.
+- [ ] Handle inactive-user access so users can sign in but cannot use the app.
+
+## 3. Domain model and habit setup
+
+- [ ] Define the data model for users, habits, entries, and sync metadata.
+- [ ] Create habit CRUD for positive and negative habits.
+- [ ] Add habit creation and editing forms.
+- [ ] Add habit deletion and archive handling if needed by the spec.
+- [ ] Normalize habit types, units, and frequency rules.
+
+## 4. Positive habit tracking
+
+- [ ] Implement simple habits with done / not done tracking.
+- [ ] Implement countable habits with unit, minimum, goal, and progress states.
+- [ ] Support multiple entries per period and sum them into a single progress value.
+- [ ] Apply evaluation states for missed, partial, complete, and above-goal progress.
+- [ ] Add GitHub-style highlight treatment when progress exceeds the goal.
+- [ ] Track streaks for positive habits.
+
+## 5. Frequency rules
+
+- [ ] Implement preset frequencies: daily, weekly, monthly, 2 times a week, 3 times a week, 3 times in the day, and 1 time in the month.
+- [ ] Add custom weekly and monthly schedule rules.
+- [ ] Validate frequency compatibility per habit type.
+- [ ] Compute current period boundaries for each schedule type.
+
+## 6. Negative habit tracking
+
+- [ ] Implement simple occurrence logging for negative habits.
+- [ ] Track reductions over time for bad habits.
+- [ ] Show negative-habit history and period summaries.
+
+## 7. Dashboards and analytics
+
+- [ ] Create the user dashboard.
+- [ ] Add streak, progress, and history views.
+- [ ] Build the full analytics dashboard.
+- [ ] Add charts and summaries for positive and negative habits.
+- [ ] Surface per-habit completion and trend metrics.
+
+## 8. Admin dashboard
+
+- [ ] Build the admin dashboard shell.
+- [ ] List users and show activation status.
+- [ ] Activate users.
+- [ ] Deactivate users.
+- [ ] Reflect user state changes in the app immediately.
+
+## 9. Notifications
+
+- [ ] Add push notification infrastructure.
+- [ ] Request notification permission.
+- [ ] Schedule or trigger habit reminders.
+- [ ] Handle notification preferences per user.
+
+## 10. Offline and sync
+
+- [ ] Implement offline-first local persistence.
+- [ ] Save habit actions locally before syncing.
+- [ ] Add later sync flow for queued changes.
+- [ ] Resolve sync conflicts and retries.
+- [ ] Reflect online/offline status in the UI.
+
+## 11. Polish and release readiness
+
+- [ ] Improve loading, empty, and error states.
+- [ ] Add accessibility and keyboard support checks.
+- [ ] Polish app-wide UX and visual consistency.
+- [ ] Review responsive behavior on mobile and desktop.
+- [ ] Validate the full flow from signup to tracking and admin control.
