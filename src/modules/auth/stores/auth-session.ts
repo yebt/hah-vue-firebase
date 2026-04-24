@@ -3,7 +3,11 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { auth } from '@/app/infrastructure/firebase'
-import { signInWithEmailPassword, signOutCurrentUser } from '../services/email-password-auth'
+import {
+  createAccountWithEmailPassword,
+  signInWithEmailPassword,
+  signOutCurrentUser,
+} from '../services/email-password-auth'
 import { signInWithGooglePopup } from '../services/google-auth'
 
 export const useAuthSessionStore = defineStore('auth-session', () => {
@@ -26,6 +30,10 @@ export const useAuthSessionStore = defineStore('auth-session', () => {
     return signInWithEmailPassword(email, password)
   }
 
+  async function createAccount(email: string, password: string) {
+    return createAccountWithEmailPassword(email, password)
+  }
+
   async function signInWithGoogle() {
     return signInWithGooglePopup()
   }
@@ -38,6 +46,7 @@ export const useAuthSessionStore = defineStore('auth-session', () => {
 
   return {
     ensureInitialized,
+    createAccount,
     isAuthenticated,
     isReady,
     signIn,

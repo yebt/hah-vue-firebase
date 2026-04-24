@@ -48,10 +48,10 @@ const steps = [
             Positive habits, negative habits, flexible schedules — all offline-ready.
           </p>
           <div class="hero-actions">
-            <RouterLink to="/login" class="btn-white">
-              Sign in with email <i class="i-lucide-arrow-right" />
+            <RouterLink to="/signup" class="btn-white">
+              Create account <i class="i-lucide-arrow-right" />
             </RouterLink>
-            <span class="hero-note">Self-registration and Google sign-in are coming next.</span>
+            <span class="hero-note">Email registration is live. Google and sign-in are available too.</span>
           </div>
         </div>
 
@@ -110,7 +110,7 @@ const steps = [
         <span class="ribbon-dot" />
         <span class="ribbon-item"><i class="i-lucide-smartphone" /> PWA installable</span>
         <span class="ribbon-dot" />
-        <span class="ribbon-item"><i class="i-lucide-mail" /> Email sign-in</span>
+        <span class="ribbon-item"><i class="i-lucide-user-plus" /> Self-registration</span>
         <span class="ribbon-dot" />
         <span class="ribbon-item"><i class="i-lucide-code-2" /> Vue 3 + TypeScript</span>
       </div>
@@ -162,9 +162,9 @@ const steps = [
             </span>
           </div>
         </div>
-        <RouterLink to="/login" class="btn-cta">
-          <i class="i-lucide-log-in" />
-          Sign in with email
+        <RouterLink to="/signup" class="btn-cta">
+          <i class="i-lucide-user-plus" />
+          Create account
         </RouterLink>
       </div>
     </section>

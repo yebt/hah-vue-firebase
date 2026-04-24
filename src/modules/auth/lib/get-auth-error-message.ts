@@ -4,6 +4,8 @@ const AUTH_ERROR_MESSAGES: Record<string, string> = {
   'auth/invalid-credential': 'Invalid email or password.',
   'auth/invalid-email': 'Enter a valid email address.',
   'auth/missing-password': 'Enter your password.',
+  'auth/email-already-in-use': 'An account already exists for this email address.',
+  'auth/weak-password': 'Use a stronger password with at least 6 characters.',
   'auth/account-exists-with-different-credential':
     'This email is already registered with a different sign-in method.',
   'auth/too-many-requests': 'Too many attempts. Wait a moment and try again.',

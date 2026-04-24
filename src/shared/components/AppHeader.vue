@@ -19,7 +19,7 @@ import { RouterLink } from 'vue-router'
       <div class="actions">
         <slot name="actions">
           <RouterLink to="/login" class="btn-signin">Sign in</RouterLink>
-          <RouterLink to="/login" class="btn-cta">Open app</RouterLink>
+          <RouterLink to="/signup" class="btn-cta">Create account</RouterLink>
         </slot>
       </div>
     </div>

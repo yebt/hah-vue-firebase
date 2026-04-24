@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import AppLayout from '@/shared/components/AppLayout.vue'
 import { getAuthErrorMessage } from '@/modules/auth/lib/get-auth-error-message'
@@ -8,38 +8,36 @@ import { useAuthSessionStore } from '@/modules/auth/stores/auth-session'
 const authSession = useAuthSessionStore()
 authSession.ensureInitialized()
 
-const credentials = reactive({
+const registration = reactive({
   email: '',
   password: '',
+  confirmPassword: '',
 })
 
-const isEmailSubmitting = ref(false)
-const isGoogleSubmitting = ref(false)
 const submitError = ref('')
+const isSubmitting = ref(false)
+
+const passwordMismatch = computed(
+  () =>
+    registration.confirmPassword.length > 0 && registration.password !== registration.confirmPassword
+)
 
 async function handleSubmit() {
   submitError.value = ''
-  isEmailSubmitting.value = true
 
-  try {
-    await authSession.signIn(credentials.email.trim(), credentials.password)
-  } catch (error) {
-    submitError.value = getAuthErrorMessage(error)
-  } finally {
-    isEmailSubmitting.value = false
+  if (passwordMismatch.value) {
+    submitError.value = 'Passwords do not match.'
+    return
   }
-}
 
-async function handleGoogleSignIn() {
-  submitError.value = ''
-  isGoogleSubmitting.value = true
+  isSubmitting.value = true
 
   try {
-    await authSession.signInWithGoogle()
+    await authSession.createAccount(registration.email.trim(), registration.password)
   } catch (error) {
     submitError.value = getAuthErrorMessage(error)
   } finally {
-    isGoogleSubmitting.value = false
+    isSubmitting.value = false
   }
 }
 
@@ -59,68 +57,49 @@ async function handleSignOut() {
 
         <div class="auth-grid">
           <div class="auth-copy">
-            <p class="auth-eyebrow mono">Authentication</p>
-            <h1 class="auth-title">Sign in to HAH.</h1>
-              <p class="auth-description">
-                Existing users can already access their account with email/password or Google.
-                New users can create an account now, while activation flow and protected in-app
-                access are the next auth slices.
-              </p>
+            <p class="auth-eyebrow mono">Registration</p>
+            <h1 class="auth-title">Create your HAH account.</h1>
+            <p class="auth-description">
+              Start with email/password and get into the platform as soon as the activation flow is
+              completed. Google sign-in and role-based access already exist on the auth side.
+            </p>
 
             <ul class="auth-highlights">
-              <li><i class="i-lucide-check" /> Email/password authentication via Firebase</li>
-              <li><i class="i-lucide-check" /> Google popup sign-in for supported accounts</li>
-              <li><i class="i-lucide-check" /> Persistent browser session managed by Firebase Auth</li>
-              <li><i class="i-lucide-check" /> Self-registration with email/password</li>
-              <li><i class="i-lucide-clock-3" /> Activation flow and role-based access coming next</li>
+              <li><i class="i-lucide-check" /> Email/password self-registration is now available</li>
+              <li><i class="i-lucide-check" /> Firebase Auth signs the new user in immediately</li>
+              <li><i class="i-lucide-clock-3" /> Admin activation and protected app access come next</li>
             </ul>
           </div>
 
           <div class="auth-panel">
             <template v-if="authSession.isAuthenticated">
-              <p class="panel-eyebrow mono">Signed in</p>
-              <h2 class="panel-title">Session active.</h2>
+              <p class="panel-eyebrow mono">Account created</p>
+              <h2 class="panel-title">Registration complete.</h2>
               <p class="panel-copy">
-                You are authenticated as
+                Your account was created for
                 <span class="panel-email mono">
                   {{ authSession.user?.email ?? authSession.user?.displayName ?? authSession.user?.uid }}
                 </span>.
               </p>
+              <p class="form-note">
+                The next auth slice adds admin activation and protected in-app access.
+              </p>
 
               <div class="panel-actions">
                 <RouterLink to="/" class="panel-link">Back home</RouterLink>
+                <RouterLink to="/login" class="panel-link">Go to sign in</RouterLink>
                 <button class="panel-primary" type="button" @click="handleSignOut">Sign out</button>
               </div>
             </template>
 
             <form v-else class="auth-form" @submit.prevent="handleSubmit">
-              <p class="panel-eyebrow mono">Account access</p>
-              <h2 class="panel-title">Use email or Google.</h2>
-
-              <button
-                class="panel-google"
-                type="button"
-                :disabled="isGoogleSubmitting || !authSession.isReady"
-                @click="handleGoogleSignIn"
-              >
-                <i class="i-lucide-badge-check" />
-                {{
-                  isGoogleSubmitting
-                    ? 'Opening Google…'
-                    : authSession.isReady
-                      ? 'Continue with Google'
-                      : 'Loading…'
-                }}
-              </button>
-
-              <div class="form-divider">
-                <span class="mono">or continue with email</span>
-              </div>
+              <p class="panel-eyebrow mono">Create account</p>
+              <h2 class="panel-title">Register with email.</h2>
 
               <label class="field">
                 <span class="field-label mono">Email</span>
                 <input
-                  v-model="credentials.email"
+                  v-model="registration.email"
                   class="field-input"
                   type="email"
                   name="email"
@@ -132,11 +111,25 @@ async function handleSignOut() {
               <label class="field">
                 <span class="field-label mono">Password</span>
                 <input
-                  v-model="credentials.password"
+                  v-model="registration.password"
                   class="field-input"
                   type="password"
                   name="password"
-                  autocomplete="current-password"
+                  autocomplete="new-password"
+                  minlength="6"
+                  required
+                />
+              </label>
+
+              <label class="field">
+                <span class="field-label mono">Confirm password</span>
+                <input
+                  v-model="registration.confirmPassword"
+                  class="field-input"
+                  type="password"
+                  name="confirmPassword"
+                  autocomplete="new-password"
+                  minlength="6"
                   required
                 />
               </label>
@@ -149,20 +142,20 @@ async function handleSignOut() {
               <button
                 class="panel-primary"
                 type="submit"
-                :disabled="isEmailSubmitting || isGoogleSubmitting || !authSession.isReady"
+                :disabled="isSubmitting || passwordMismatch || !authSession.isReady"
               >
                 {{
-                  isEmailSubmitting
-                    ? 'Signing in…'
+                  isSubmitting
+                    ? 'Creating account…'
                     : authSession.isReady
-                      ? 'Sign in with email'
+                      ? 'Create account'
                       : 'Loading…'
                 }}
               </button>
 
               <p class="form-note">
-                Don’t have an account yet?
-                <RouterLink to="/signup" class="inline-link">Create one now</RouterLink>
+                Already have an account?
+                <RouterLink to="/login" class="inline-link">Sign in</RouterLink>
               </p>
             </form>
           </div>
@@ -279,22 +272,6 @@ async function handleSignOut() {
   gap: 16px;
 }
 
-.form-divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--ink3);
-  font-size: 10px;
-}
-
-.form-divider::before,
-.form-divider::after {
-  content: '';
-  height: 1px;
-  flex: 1;
-  background: var(--border);
-}
-
 .field {
   display: grid;
   gap: 8px;
@@ -336,15 +313,14 @@ async function handleSignOut() {
   display: flex;
   gap: 12px;
   margin-top: 24px;
+  flex-wrap: wrap;
 }
 
 .panel-primary,
-.panel-google,
 .panel-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   height: 36px;
   padding: 0 16px;
   border-radius: 2px;
@@ -364,25 +340,14 @@ async function handleSignOut() {
   cursor: not-allowed;
 }
 
-.panel-google {
-  border: 1px solid var(--border2);
-  background: var(--bg2);
-  color: var(--ink);
-}
-
-.panel-google:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+.panel-link,
+.inline-link {
+  color: var(--blue);
 }
 
 .panel-link {
   border: 1px solid var(--border2);
-  color: var(--ink2);
   background: transparent;
-}
-
-.inline-link {
-  color: var(--blue);
 }
 
 @media (max-width: 860px) {
