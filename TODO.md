@@ -1,31 +1,63 @@
 # TODO
 
-This is the basic definitions for the requeriments in the APP
+Project requirements for the habit app.
 
-This is a simple app with
+## Goal
 
-## Auth
+Build a habit tracking app for regular users, with an admin panel to activate or deactivate accounts.
 
-Exits 2 types of user: admin and regular user
+## Authentication
 
-The admin go to the dashboard and manage if activate or deactivate
-The regular user go inside the app
+- Support email/password login.
+- Support Google login.
+- Users can self-register.
+- After signup, an admin activates the account.
+- If an admin deactivates a user, the user can still sign in but cannot use the app.
 
-## APP
+## User roles
 
-The app is for add habits.
-Positive and negative habits
+- **Admin**
+  - Access the dashboard.
+  - Activate or deactivate users.
+- **Regular user**
+  - Access the main app.
+  - Create and track habits.
 
-I need track my positive habits and when no do the bad habits.
+## Habits
 
-The habit could be a simple habit (do or not)
-And a countable habit. This contains:
-- A unit (unit to measure the habit, for example: km, min, times, etc)
-- a min (minimum value to consider that the habit is not lost, just half done)
-- a goal (the value that i need to considere to complete), if the value is greater that the goal, show them with a most pure coolor, like the pattern in github
+The app supports positive and negative habits.
 
-The habit has a frequency
-How many time I need to track if i do the habit in a space of time
+### Positive habits
+
+- Track good habits and streaks.
+- Habit types:
+  - Simple habit: done or not done.
+  - Countable habit.
+
+### Countable habits
+
+- Have a unit, for example: km, min, times.
+- Have a minimum value.
+- Have a goal value.
+- If progress goes above the goal, show it with a stronger highlight color, like GitHub-style progress.
+- Countable habits are tracked with multiple entries that are summed per period.
+- Evaluation rules:
+  - Below minimum: missed.
+  - From minimum to near the goal: partial.
+  - At goal: complete.
+  - Above goal: complete and highlighted.
+
+### Negative habits
+
+- Negative habits are things to avoid, like junk food or smoking.
+- Track each time the bad habit happens.
+- Negative habits are simple occurrence tracking only.
+
+## Frequency
+
+Habits can use preset frequency rules and custom weekly/monthly rules.
+
+Supported examples:
 
 - Daily
 - Weekly
@@ -35,18 +67,30 @@ How many time I need to track if i do the habit in a space of time
 - 3 times in the day
 - 1 time in the month
 
+## Metrics and analytics
 
-The negative habit is to not do, like eat junk food, smoke, etc. I need to track when I do the bad habit, and try to reduce it.
+- Show full analytics dashboard for habits.
+- Include progress and history views for users.
 
-## Tehcnology stack
+## Notifications
+
+- Include push notifications.
+
+## PWA and offline
+
+- App should be installable as a PWA.
+- Prepare offline-first support.
+- Save locally first and sync later.
+
+## Technology stack
 
 - Vue 3
-- router with file based routing
+- File-based router
 - Pinia
-- pinia colada (for queries and optimistic updates)
-- unocss with lucide icons and wind4 (tailwind4)
-- firebase
-- vuefire
-- vite pwa
-
-
+- Pinia Colada
+- UnoCSS
+- Lucide icons
+- Wind4 / Tailwind 4
+- Firebase
+- VueFire
+- Vite PWA
