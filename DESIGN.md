@@ -63,14 +63,12 @@ El hero de la landing usa `background: var(--ink)`. Dentro de ese contexto:
 
 ### Fuentes
 
-```css
---mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
---sans: 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
-```
+La fuente activa siempre sale de `src/shared/assets/css/main.css`.  
+**Nunca** hardcodear familias tipográficas dentro de componentes.
 
-Cargadas desde Google Fonts en `main.css`:
 ```css
-@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600&family=Geist:wght@300;400;500;600&display=swap');
+--mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+--sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 ```
 
 ### Cuándo usar cada una
@@ -126,6 +124,24 @@ Cargadas desde Google Fonts en `main.css`:
 | CTA title                   | `--text-xl` / `--text-2xl` | 600 | Mono                               |
 | Métricas                    | `--text-xl`                | 600 | Mono, letter-spacing -0.02em       |
 | Paso numérico (01, 02…)     | `--text-4xl`              | 600 | Mono, color `--border2`            |
+
+---
+
+## Implementación UI
+
+- La UI debe construirse con **UnoCSS + Wind4 utilities** directamente en el template.
+- Los patrones reutilizables viven en `src/app/design_system/`.
+- Evitar `style scoped` por página o componente de feature si se puede resolver con:
+  1. utilities
+  2. tokens CSS globales
+  3. componentes del design system
+- Componentes base actuales:
+  - `DsButton.vue`
+  - `DsTextField.vue`
+  - `DsSectionEyebrow.vue`
+  - `DsAuthShell.vue`
+
+**Regla:** si un patrón visual aparece 2 o más veces, evaluar extraerlo al design system antes de duplicarlo.
 
 ---
 

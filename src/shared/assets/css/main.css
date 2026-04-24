@@ -33,30 +33,43 @@
 
   --text-xs: 0.75rem;
   --text-xs--line-height: calc(1 / 0.75);
+  --lh-xs: var(--text-xs--line-height);
   --text-sm: 0.875rem;
   --text-sm--line-height: calc(1.25 / 0.875);
+  --lh-sm: var(--text-sm--line-height);
   --text-base: 1rem;
   --text-base--line-height: calc(1.5 / 1);
+  --lh-base: var(--text-base--line-height);
   --text-lg: 1.125rem;
   --text-lg--line-height: calc(1.75 / 1.125);
+  --lh-lg: var(--text-lg--line-height);
   --text-xl: 1.25rem;
   --text-xl--line-height: calc(1.75 / 1.25);
+  --lh-xl: var(--text-xl--line-height);
   --text-2xl: 1.5rem;
   --text-2xl--line-height: calc(2 / 1.5);
+  --lh-2xl: var(--text-2xl--line-height);
   --text-3xl: 1.875rem;
   --text-3xl--line-height: calc(2.25 / 1.875);
+  --lh-3xl: var(--text-3xl--line-height);
   --text-4xl: 2.25rem;
   --text-4xl--line-height: calc(2.5 / 2.25);
+  --lh-4xl: var(--text-4xl--line-height);
   --text-5xl: 3rem;
   --text-5xl--line-height: 1;
+  --lh-5xl: var(--text-5xl--line-height);
   --text-6xl: 3.75rem;
   --text-6xl--line-height: 1;
+  --lh-6xl: var(--text-6xl--line-height);
   --text-7xl: 4.5rem;
   --text-7xl--line-height: 1;
+  --lh-7xl: var(--text-7xl--line-height);
   --text-8xl: 6rem;
   --text-8xl--line-height: 1;
+  --lh-8xl: var(--text-8xl--line-height);
   --text-9xl: 8rem;
   --text-9xl--line-height: 1;
+  --lh-9xl: var(--text-9xl--line-height);
 
   --max: 1200px;
   --gutter: 24px;
@@ -79,7 +92,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-size: var(--text-base);
-  line-height: var(--text-base--line-height);
+  line-height: var(--lh-base);
   -webkit-font-smoothing: antialiased;
 }
 

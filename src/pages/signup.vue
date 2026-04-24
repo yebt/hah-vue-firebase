@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import DsAuthShell from '@/app/design_system/DsAuthShell.vue'
+import DsButton from '@/app/design_system/DsButton.vue'
+import DsTextField from '@/app/design_system/DsTextField.vue'
 import AppLayout from '@/shared/components/AppLayout.vue'
 import { getAuthErrorMessage } from '@/modules/auth/lib/get-auth-error-message'
 import { useAuthSessionStore } from '@/modules/auth/stores/auth-session'
@@ -9,10 +12,16 @@ const authSession = useAuthSessionStore()
 authSession.ensureInitialized()
 
 const registration = reactive({
+  confirmPassword: '',
   email: '',
   password: '',
-  confirmPassword: '',
 })
+
+const highlights = [
+  { icon: 'i-lucide-check', text: 'Email/password self-registration is now available' },
+  { icon: 'i-lucide-check', text: 'Firebase Auth signs the new user in immediately' },
+  { icon: 'i-lucide-clock-3', text: 'Admin activation and protected app access come next', tone: 'warning' },
+] as const
 
 const submitError = ref('')
 const isSubmitting = ref(false)
@@ -48,337 +57,106 @@ async function handleSignOut() {
 
 <template>
   <AppLayout bare>
-    <section class="auth-page">
-      <div class="auth-shell">
-        <RouterLink to="/" class="auth-back">
-          <i class="i-lucide-arrow-left" />
-          Back to landing
-        </RouterLink>
+    <DsAuthShell
+      description="Start with email/password and get into the platform as soon as the activation flow is completed. Google sign-in and role-based access already exist on the auth side."
+      eyebrow="Registration"
+      :highlights="highlights"
+      title="Create your HAH account."
+    >
+      <template v-if="authSession.isAuthenticated">
+        <p
+          class="mb-4 [font-family:var(--mono)] [font-size:var(--text-xs)] [line-height:var(--lh-xs)] font-semibold uppercase tracking-[0.14em] [color:var(--ink3)]"
+        >
+          Account created
+        </p>
+        <h2
+          class="mb-3 [font-family:var(--mono)] [font-size:var(--text-xl)] [line-height:var(--lh-xl)] font-semibold tracking-[-0.02em] [color:var(--ink)]"
+        >
+          Registration complete.
+        </h2>
+        <p class="[font-size:var(--text-sm)] [line-height:1.7] [color:var(--ink2)]">
+          Your account was created for
+          <span class="[font-family:var(--mono)] [color:var(--ink)]">
+            {{ authSession.user?.email ?? authSession.user?.displayName ?? authSession.user?.uid }}
+          </span>.
+        </p>
+        <p class="mt-3 [font-size:var(--text-sm)] [line-height:1.7] [color:var(--ink2)]">
+          The next auth slice adds admin activation and protected in-app access.
+        </p>
 
-        <div class="auth-grid">
-          <div class="auth-copy">
-            <p class="auth-eyebrow mono">Registration</p>
-            <h1 class="auth-title">Create your HAH account.</h1>
-            <p class="auth-description">
-              Start with email/password and get into the platform as soon as the activation flow is
-              completed. Google sign-in and role-based access already exist on the auth side.
-            </p>
-
-            <ul class="auth-highlights">
-              <li><i class="i-lucide-check" /> Email/password self-registration is now available</li>
-              <li><i class="i-lucide-check" /> Firebase Auth signs the new user in immediately</li>
-              <li><i class="i-lucide-clock-3" /> Admin activation and protected app access come next</li>
-            </ul>
-          </div>
-
-          <div class="auth-panel">
-            <template v-if="authSession.isAuthenticated">
-              <p class="panel-eyebrow mono">Account created</p>
-              <h2 class="panel-title">Registration complete.</h2>
-              <p class="panel-copy">
-                Your account was created for
-                <span class="panel-email mono">
-                  {{ authSession.user?.email ?? authSession.user?.displayName ?? authSession.user?.uid }}
-                </span>.
-              </p>
-              <p class="form-note">
-                The next auth slice adds admin activation and protected in-app access.
-              </p>
-
-              <div class="panel-actions">
-                <RouterLink to="/" class="panel-link">Back home</RouterLink>
-                <RouterLink to="/login" class="panel-link">Go to sign in</RouterLink>
-                <button class="panel-primary" type="button" @click="handleSignOut">Sign out</button>
-              </div>
-            </template>
-
-            <form v-else class="auth-form" @submit.prevent="handleSubmit">
-              <p class="panel-eyebrow mono">Create account</p>
-              <h2 class="panel-title">Register with email.</h2>
-
-              <label class="field">
-                <span class="field-label mono">Email</span>
-                <input
-                  v-model="registration.email"
-                  class="field-input"
-                  type="email"
-                  name="email"
-                  autocomplete="email"
-                  required
-                />
-              </label>
-
-              <label class="field">
-                <span class="field-label mono">Password</span>
-                <input
-                  v-model="registration.password"
-                  class="field-input"
-                  type="password"
-                  name="password"
-                  autocomplete="new-password"
-                  minlength="6"
-                  required
-                />
-              </label>
-
-              <label class="field">
-                <span class="field-label mono">Confirm password</span>
-                <input
-                  v-model="registration.confirmPassword"
-                  class="field-input"
-                  type="password"
-                  name="confirmPassword"
-                  autocomplete="new-password"
-                  minlength="6"
-                  required
-                />
-              </label>
-
-              <p v-if="submitError" class="form-error">
-                <i class="i-lucide-circle-alert" />
-                {{ submitError }}
-              </p>
-
-              <button
-                class="panel-primary"
-                type="submit"
-                :disabled="isSubmitting || passwordMismatch || !authSession.isReady"
-              >
-                {{
-                  isSubmitting
-                    ? 'Creating account…'
-                    : authSession.isReady
-                      ? 'Create account'
-                      : 'Loading…'
-                }}
-              </button>
-
-              <p class="form-note">
-                Already have an account?
-                <RouterLink to="/login" class="inline-link">Sign in</RouterLink>
-              </p>
-            </form>
-          </div>
+        <div class="mt-6 flex flex-wrap gap-3 max-sm:flex-col">
+          <DsButton to="/" variant="secondary">Back home</DsButton>
+          <DsButton to="/login" variant="secondary">Go to sign in</DsButton>
+          <DsButton type="button" @click="handleSignOut">Sign out</DsButton>
         </div>
-      </div>
-    </section>
+      </template>
+
+      <form v-else class="grid gap-4" @submit.prevent="handleSubmit">
+        <p
+          class="mb-1 [font-family:var(--mono)] [font-size:var(--text-xs)] [line-height:var(--lh-xs)] font-semibold uppercase tracking-[0.14em] [color:var(--ink3)]"
+        >
+          Create account
+        </p>
+        <h2
+          class="mb-1 [font-family:var(--mono)] [font-size:var(--text-xl)] [line-height:var(--lh-xl)] font-semibold tracking-[-0.02em] [color:var(--ink)]"
+        >
+          Register with email.
+        </h2>
+
+        <DsTextField
+          v-model="registration.email"
+          autocomplete="email"
+          label="Email"
+          name="email"
+          required
+          type="email"
+        />
+        <DsTextField
+          v-model="registration.password"
+          autocomplete="new-password"
+          label="Password"
+          :min-length="6"
+          name="password"
+          required
+          type="password"
+        />
+        <DsTextField
+          v-model="registration.confirmPassword"
+          autocomplete="new-password"
+          label="Confirm password"
+          :min-length="6"
+          name="confirmPassword"
+          required
+          type="password"
+        />
+
+        <p
+          v-if="submitError"
+          class="flex items-center gap-2 border px-3 py-[10px] [border-color:var(--red-mid)] [background:var(--red-bg)] [color:var(--red)] [font-size:var(--text-sm)] [line-height:var(--lh-sm)]"
+        >
+          <i class="i-lucide-circle-alert" />
+          {{ submitError }}
+        </p>
+
+        <DsButton
+          block
+          :disabled="isSubmitting || passwordMismatch || !authSession.isReady"
+          type="submit"
+        >
+          {{
+            isSubmitting
+              ? 'Creating account…'
+              : authSession.isReady
+                ? 'Create account'
+                : 'Loading…'
+          }}
+        </DsButton>
+
+        <p class="[font-size:var(--text-sm)] [line-height:1.7] [color:var(--ink2)]">
+          Already have an account?
+          <RouterLink to="/login" class="[color:var(--blue)]">Sign in</RouterLink>
+        </p>
+      </form>
+    </DsAuthShell>
   </AppLayout>
 </template>
-
-<style scoped>
-.auth-page {
-  min-height: calc(100vh - 36px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 48px 24px;
-}
-
-.auth-shell {
-  width: min(100%, 1080px);
-}
-
-.auth-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 28px;
-  font-family: var(--mono);
-  font-size: var(--text-xs);
-  color: var(--ink2);
-}
-
-.auth-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 420px;
-  border: 1px solid var(--border);
-  background: var(--bg2);
-}
-
-.auth-copy,
-.auth-panel {
-  padding: 40px;
-}
-
-.auth-copy {
-  border-right: 1px solid var(--border);
-  background: var(--bg);
-}
-
-.auth-eyebrow,
-.panel-eyebrow {
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink3);
-  margin-bottom: 16px;
-}
-
-.auth-title {
-  font-family: var(--mono);
-  font-size: var(--text-5xl);
-  line-height: var(--text-5xl--line-height);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  color: var(--ink);
-  margin-bottom: 16px;
-}
-
-.auth-description,
-.panel-copy,
-.form-note {
-  font-size: var(--text-sm);
-  line-height: 1.7;
-  color: var(--ink2);
-}
-
-.auth-highlights {
-  list-style: none;
-  display: grid;
-  gap: 12px;
-  margin-top: 24px;
-  padding: 0;
-}
-
-.auth-highlights li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--ink2);
-  font-size: var(--text-sm);
-}
-
-.auth-highlights i {
-  color: var(--green);
-  flex-shrink: 0;
-}
-
-.panel-title {
-  font-family: var(--mono);
-  font-size: var(--text-xl);
-  line-height: var(--text-xl--line-height);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin-bottom: 12px;
-}
-
-.panel-email {
-  color: var(--ink);
-}
-
-.auth-form {
-  display: grid;
-  gap: 16px;
-}
-
-.field {
-  display: grid;
-  gap: 8px;
-}
-
-.field-label {
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--ink2);
-}
-
-.field-input {
-  height: 40px;
-  padding: 0 12px;
-  border: 1px solid var(--border);
-  background: var(--bg2);
-  color: var(--ink);
-  font-size: var(--text-sm);
-  font-family: var(--sans);
-  outline: none;
-}
-
-.field-input:focus {
-  border-color: var(--blue-mid);
-}
-
-.form-error {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  border: 1px solid var(--red-mid);
-  background: var(--red-bg);
-  color: var(--red);
-  font-size: var(--text-sm);
-}
-
-.panel-actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 24px;
-  flex-wrap: wrap;
-}
-
-.panel-primary,
-.panel-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 36px;
-  padding: 0 16px;
-  border-radius: 2px;
-  font-family: var(--mono);
-  font-size: var(--text-sm);
-  font-weight: 500;
-}
-
-.panel-primary {
-  border: 1px solid var(--ink);
-  background: var(--ink);
-  color: #fff;
-}
-
-.panel-primary:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.panel-link,
-.inline-link {
-  color: var(--blue);
-}
-
-.panel-link {
-  border: 1px solid var(--border2);
-  background: transparent;
-}
-
-@media (max-width: 860px) {
-  .auth-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .auth-copy {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-@media (max-width: 640px) {
-  .auth-page {
-    padding: 24px 16px;
-  }
-
-  .auth-copy,
-  .auth-panel {
-    padding: 24px;
-  }
-
-  .auth-title {
-    font-size: var(--text-3xl);
-    line-height: var(--text-3xl--line-height);
-  }
-
-  .panel-actions {
-    flex-direction: column;
-  }
-}
-</style>

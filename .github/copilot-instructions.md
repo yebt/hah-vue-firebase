@@ -30,6 +30,7 @@
   - `config.ts` maps Vite env variables to Firebase config.
   - `index.ts` initializes the Firebase app and Firestore instance.
 - Styling is utility-first with UnoCSS + Wind4, plus a shared stylesheet at `src/shared/assets/css/main.css`.
+- Reusable UI primitives live under `src/app/design_system/`; pages and shared chrome should compose them instead of reintroducing page-local styled components.
 
 ## Conventions
 
@@ -48,7 +49,9 @@ All UI work must follow `DESIGN.md`. Key rules:
 
 - **Fonts:** `Geist Mono` for nav, labels, metrics, chips, hero titles. `Geist` for body/descriptions.
 - **Colors:** Always use CSS variables (`--ink`, `--bg`, `--border`, semantic variants). Never hardcode hex in components.
+- **Implementation style:** Prefer Wind4/utility classes directly in templates and reusable primitives in `src/app/design_system/`. Avoid page-local `style scoped` blocks unless a utility-first approach is genuinely insufficient.
 - **Semantic color discipline:** `amber` = warning/WIP, `green` = success/streak, `red` = error/negative, `blue` = info. Never use semantic colors just for decoration.
+- **Typography:** Use the global `--text-*` tokens from `main.css`; do not hardcode `font-size`, and avoid anything smaller than `text-xs` unless explicitly approved.
 - **Border radius:** max 3px (panels), 2px (buttons/chips/icons), 1px (small cells). Never `rounded-lg` or higher.
 - **No shadows:** Section separation is done with `border-bottom: 1px solid var(--border)`. Grid columns use `border-right` as dividers — not `gap` + cards.
 - **Heights:** Nav = 44px, footer = 44px, ribbon = 44px, section eyebrow = 40px. Keep chrome at fixed heights.

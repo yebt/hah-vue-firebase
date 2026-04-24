@@ -2,16 +2,17 @@
 import AppHeader from './AppHeader.vue'
 
 defineProps<{
-  /** Hides the header for pages that manage their own chrome (e.g. full-screen auth) */
   bare?: boolean
 }>()
 </script>
 
 <template>
-  <div class="layout">
-    <div class="wip-banner">
+  <div class="flex min-h-screen flex-col [background:var(--bg)]">
+    <div
+      class="flex min-h-9 items-center justify-center gap-2 border-b px-4 py-2 text-center [border-color:var(--amber-mid)] [background:var(--amber-bg)] [font-family:var(--mono)] [font-size:var(--text-sm)] [line-height:var(--lh-sm)] font-medium [color:var(--amber)]"
+    >
       <i class="i-lucide-triangle-alert" />
-      HAH is work in progress — some features may be unavailable while the app is still being built.
+      <span>HAH is work in progress — some features may be unavailable while the app is still being built.</span>
     </div>
 
     <AppHeader v-if="!bare">
@@ -20,120 +21,45 @@ defineProps<{
       </template>
     </AppHeader>
 
-    <main class="main">
+    <main class="flex-1">
       <slot />
     </main>
 
-    <footer v-if="!bare" class="footer">
-      <div class="footer-inner">
-        <span class="footer-brand">HAH</span>
-        <span class="footer-copy">Habit and health tracker · {{ new Date().getFullYear() }}</span>
-        <div class="footer-links">
-          <a href="#privacy">Privacy</a>
-          <a href="#terms">Terms</a>
-          <a href="https://github.com/yebt/hah-vue-firebase" target="_blank" rel="noopener">GitHub</a>
+    <footer v-if="!bare" class="border-t [border-color:var(--border)] [background:var(--bg2)]">
+      <div
+        class="mx-auto flex min-h-11 max-w-[var(--max)] items-center gap-y-2 px-[var(--gutter)] max-sm:flex-wrap max-sm:py-2"
+      >
+        <span
+          class="mr-4 border-r pr-4 [border-color:var(--border)] [font-family:var(--mono)] [font-size:var(--text-sm)] [line-height:var(--lh-sm)] font-semibold tracking-[0.15em] [color:var(--ink)]"
+        >
+          HAH
+        </span>
+        <span class="flex-1 [font-size:var(--text-sm)] [line-height:var(--lh-sm)] [color:var(--ink3)] max-sm:basis-full max-sm:order-3">
+          Habit and health tracker · {{ new Date().getFullYear() }}
+        </span>
+        <div class="flex max-sm:w-full">
+          <a
+            href="#privacy"
+            class="border-l px-[14px] [border-color:var(--border)] [font-family:var(--mono)] [font-size:var(--text-sm)] [line-height:44px] [color:var(--ink3)] transition-colors duration-150 hover:[color:var(--ink)]"
+          >
+            Privacy
+          </a>
+          <a
+            href="#terms"
+            class="border-l px-[14px] [border-color:var(--border)] [font-family:var(--mono)] [font-size:var(--text-sm)] [line-height:44px] [color:var(--ink3)] transition-colors duration-150 hover:[color:var(--ink)]"
+          >
+            Terms
+          </a>
+          <a
+            href="https://github.com/yebt/hah-vue-firebase"
+            rel="noopener"
+            target="_blank"
+            class="border-l px-[14px] [border-color:var(--border)] [font-family:var(--mono)] [font-size:var(--text-sm)] [line-height:44px] [color:var(--ink3)] transition-colors duration-150 hover:[color:var(--ink)]"
+          >
+            GitHub
+          </a>
         </div>
       </div>
     </footer>
   </div>
 </template>
-
-<style scoped>
-.layout {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: var(--bg);
-}
-
-.wip-banner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 36px;
-  background: var(--amber-bg);
-  border-bottom: 1px solid var(--amber-mid);
-  color: var(--amber);
-  font-family: var(--mono);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  padding: 8px 16px;
-  text-align: center;
-  line-height: 1.5;
-}
-
-.main {
-  flex: 1;
-}
-
-.footer {
-  border-top: 1px solid var(--border);
-  background: var(--bg2);
-}
-
-.footer-inner {
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-  height: 44px;
-  display: flex;
-  align-items: center;
-  gap: 0;
-}
-
-.footer-brand {
-  font-family: var(--mono);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  color: var(--ink);
-  padding-right: 16px;
-  border-right: 1px solid var(--border);
-  margin-right: 16px;
-}
-
-.footer-copy {
-  font-size: var(--text-xs);
-  color: var(--ink3);
-  flex: 1;
-}
-
-.footer-links {
-  display: flex;
-}
-
-.footer-links a {
-  font-family: var(--mono);
-  font-size: var(--text-xs);
-  color: var(--ink3);
-  padding: 0 14px;
-  border-left: 1px solid var(--border);
-  line-height: 44px;
-  transition: color 0.1s;
-}
-
-.footer-links a:hover {
-  color: var(--ink);
-}
-
-@media (max-width: 640px) {
-  .footer-inner {
-    height: auto;
-    min-height: 44px;
-    flex-wrap: wrap;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    gap: 10px 0;
-  }
-
-  .footer-copy {
-    flex-basis: 100%;
-    order: 3;
-  }
-
-  .footer-links {
-    width: 100%;
-  }
-}
-</style>

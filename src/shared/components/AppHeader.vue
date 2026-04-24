@@ -1,159 +1,46 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import DsButton from '@/app/design_system/DsButton.vue'
 </script>
 
 <template>
-  <header class="nav">
-    <div class="nav-inner">
-      <RouterLink to="/" class="brand">
-        <i class="i-lucide-zap brand-icon" />
-        <span class="brand-name">HAH</span>
+  <header class="sticky top-0 z-50 border-b [border-color:var(--border)] [background:var(--bg2)]">
+    <div class="mx-auto flex h-11 max-w-[var(--max)] items-stretch">
+      <RouterLink
+        to="/"
+        class="flex shrink-0 items-center gap-2 border-r px-[18px] [border-color:var(--border)] [font-family:var(--mono)] [font-size:var(--text-sm)] [line-height:var(--lh-sm)] font-semibold tracking-[0.12em] [color:var(--ink)]"
+      >
+        <i class="i-lucide-zap [font-size:var(--text-base)] [color:var(--blue)]" />
+        <span>HAH</span>
       </RouterLink>
 
-      <nav class="links" aria-label="Main navigation">
-        <a href="#overview" class="link">Overview</a>
-        <a href="#habits" class="link">Features</a>
-        <a href="#analytics" class="link">Activity</a>
+      <nav class="flex flex-1 items-stretch max-sm:hidden" aria-label="Main navigation">
+        <a
+          href="#overview"
+          class="flex items-center border-r px-4 [border-color:var(--border)] [font-family:var(--mono)] [font-size:var(--text-sm)] [line-height:var(--lh-sm)] font-medium [color:var(--ink2)] transition-[color,background-color] duration-150 hover:[background:var(--bg)] hover:[color:var(--ink)]"
+        >
+          Overview
+        </a>
+        <a
+          href="#habits"
+          class="flex items-center border-r px-4 [border-color:var(--border)] [font-family:var(--mono)] [font-size:var(--text-sm)] [line-height:var(--lh-sm)] font-medium [color:var(--ink2)] transition-[color,background-color] duration-150 hover:[background:var(--bg)] hover:[color:var(--ink)]"
+        >
+          Features
+        </a>
+        <a
+          href="#analytics"
+          class="flex items-center border-r px-4 [border-color:var(--border)] [font-family:var(--mono)] [font-size:var(--text-sm)] [line-height:var(--lh-sm)] font-medium [color:var(--ink2)] transition-[color,background-color] duration-150 hover:[background:var(--bg)] hover:[color:var(--ink)]"
+        >
+          Activity
+        </a>
       </nav>
 
-      <div class="actions">
+      <div class="ml-auto flex shrink-0 items-center gap-2 border-l px-4 [border-color:var(--border)] max-sm:px-3">
         <slot name="actions">
-          <RouterLink to="/login" class="btn-signin">Sign in</RouterLink>
-          <RouterLink to="/signup" class="btn-cta">Create account</RouterLink>
+          <DsButton class="max-sm:hidden" size="sm" to="/login" variant="secondary">Sign in</DsButton>
+          <DsButton size="sm" to="/signup">Create account</DsButton>
         </slot>
       </div>
     </div>
   </header>
 </template>
-
-<style scoped>
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-}
-
-.nav-inner {
-  max-width: var(--max);
-  margin: 0 auto;
-  height: 44px;
-  display: flex;
-  align-items: stretch;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 18px;
-  border-right: 1px solid var(--border);
-  font-family: var(--mono);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: var(--ink);
-  text-decoration: none;
-  flex-shrink: 0;
-}
-
-.brand-icon {
-  color: var(--blue);
-  font-size: var(--text-base);
-}
-
-.links {
-  display: flex;
-  align-items: stretch;
-  flex: 1;
-}
-
-.link {
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  font-family: var(--mono);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--ink2);
-  border-right: 1px solid var(--border);
-  text-decoration: none;
-  transition: color 0.1s, background 0.1s;
-}
-
-.link:hover {
-  color: var(--ink);
-  background: var(--bg);
-}
-
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 16px;
-  margin-left: auto;
-  border-left: 1px solid var(--border);
-  flex-shrink: 0;
-}
-
-.btn-signin {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 28px;
-  padding: 0 12px;
-  font-family: var(--mono);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  background: transparent;
-  border: 1px solid var(--border2);
-  color: var(--ink2);
-  cursor: pointer;
-  border-radius: 2px;
-  transition: color 0.1s, border-color 0.1s;
-}
-
-.btn-signin:hover:not(:disabled) {
-  color: var(--ink);
-  border-color: var(--ink3);
-}
-
-.btn-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 28px;
-  padding: 0 14px;
-  font-family: var(--mono);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  background: var(--ink);
-  border: 1px solid var(--ink);
-  color: #fff;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: opacity 0.1s;
-}
-
-.btn-signin:disabled,
-.btn-cta:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-/* ── Responsive ──────────────────────────────────────── */
-@media (max-width: 600px) {
-  .links {
-    display: none;
-  }
-
-  .btn-signin {
-    display: none;
-  }
-
-  .actions {
-    padding: 0 12px;
-  }
-}
-</style>

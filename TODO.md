@@ -95,6 +95,7 @@ Implementation backlog for `SPECS.md`, grouped by module and ordered for sequent
 
 - [x] Define and document the visual design system in `DESIGN.md`.
 - [x] Build the unauthenticated landing page and responsive marketing navigation.
+- [x] Refactor the current UI to Wind4 utility classes plus reusable components in `src/app/design_system/`.
 - [ ] Improve loading, empty, and error states.
 - [ ] Add accessibility and keyboard support checks.
 - [ ] Polish app-wide UX and visual consistency.
