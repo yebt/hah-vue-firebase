@@ -3,52 +3,136 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <header class="app-header">
-    <div class="app-header__inner">
-      <RouterLink to="/" class="app-header__brand">
-        <span class="app-header__logo" aria-hidden="true">
-          <i class="i-lucide-zap" />
-        </span>
-        <span class="app-header__name">HAH</span>
+  <header class="nav">
+    <div class="nav-inner">
+      <RouterLink to="/" class="brand">
+        <i class="i-lucide-zap brand-icon" />
+        <span class="brand-name">HAH</span>
       </RouterLink>
 
-      <nav class="app-header__nav" aria-label="Main navigation">
-        <slot name="nav" />
+      <nav class="links" aria-label="Main navigation">
+        <a href="#overview" class="link">Overview</a>
+        <a href="#habits" class="link">Features</a>
+        <a href="#analytics" class="link">Activity</a>
       </nav>
 
-      <div class="app-header__actions">
-        <slot name="actions" />
+      <div class="actions">
+        <slot name="actions">
+          <button class="btn-signin" disabled title="Auth coming soon">Sign in</button>
+          <button class="btn-cta" disabled title="Auth coming soon">Get started</button>
+        </slot>
       </div>
     </div>
   </header>
 </template>
 
 <style scoped>
-.app-header {
-  @apply sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-sm;
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
 }
 
-.app-header__inner {
-  @apply max-w-5xl mx-auto px-4 h-14 flex items-center gap-6;
+.nav-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  height: 44px;
+  display: flex;
+  align-items: stretch;
 }
 
-.app-header__brand {
-  @apply flex items-center gap-2 font-semibold text-base text-slate-900 no-underline shrink-0;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 18px;
+  border-right: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
-.app-header__logo {
-  @apply flex h-7 w-7 items-center justify-center rounded-sm border border-indigo-300 bg-indigo-50 text-indigo-700 text-sm leading-none;
+.brand-icon {
+  color: var(--blue);
+  font-size: 14px;
 }
 
-.app-header__name {
-  @apply font-mono text-sm tracking-[0.2em];
+.links {
+  display: flex;
+  align-items: stretch;
+  flex: 1;
 }
 
-.app-header__nav {
-  @apply flex items-center gap-4 flex-1;
+.link {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink2);
+  border-right: 1px solid var(--border);
+  text-decoration: none;
+  transition: color 0.1s, background 0.1s;
 }
 
-.app-header__actions {
-  @apply flex items-center gap-2 shrink-0;
+.link:hover {
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  margin-left: auto;
+  border-left: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.btn-signin {
+  height: 28px;
+  padding: 0 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--ink2);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: color 0.1s, border-color 0.1s;
+}
+
+.btn-signin:hover:not(:disabled) {
+  color: var(--ink);
+  border-color: var(--ink3);
+}
+
+.btn-cta {
+  height: 28px;
+  padding: 0 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  color: #fff;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: opacity 0.1s;
+}
+
+.btn-signin:disabled,
+.btn-cta:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 </style>

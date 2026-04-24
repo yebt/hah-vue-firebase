@@ -8,39 +8,90 @@ defineProps<{
 </script>
 
 <template>
-  <div class="app-layout">
+  <div class="layout">
     <AppHeader v-if="!bare">
       <template #actions>
         <slot name="header-actions" />
       </template>
     </AppHeader>
 
-    <main class="app-layout__main">
+    <main class="main">
       <slot />
     </main>
 
-    <footer v-if="!bare" class="app-layout__footer">
-      <div class="app-layout__footer-inner">
-        <span class="text-sm text-gray-400">HAH &copy; {{ new Date().getFullYear() }}</span>
+    <footer v-if="!bare" class="footer">
+      <div class="footer-inner">
+        <span class="footer-brand">HAH</span>
+        <span class="footer-copy">Habit and health tracker · {{ new Date().getFullYear() }}</span>
+        <div class="footer-links">
+          <a href="#privacy">Privacy</a>
+          <a href="#terms">Terms</a>
+          <a href="https://github.com/yebt/hah-vue-firebase" target="_blank" rel="noopener">GitHub</a>
+        </div>
       </div>
     </footer>
   </div>
 </template>
 
 <style scoped>
-.app-layout {
-  @apply min-h-screen flex flex-col bg-slate-50;
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
 }
 
-.app-layout__main {
-  @apply flex-1;
+.main {
+  flex: 1;
 }
 
-.app-layout__footer {
-  @apply border-t border-slate-200 bg-white;
+.footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg2);
 }
 
-.app-layout__footer-inner {
-  @apply max-w-5xl mx-auto px-4 py-4 flex items-center justify-center;
+.footer-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.footer-brand {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--ink);
+  padding-right: 16px;
+  border-right: 1px solid var(--border);
+  margin-right: 16px;
+}
+
+.footer-copy {
+  font-size: 11px;
+  color: var(--ink3);
+  flex: 1;
+}
+
+.footer-links {
+  display: flex;
+}
+
+.footer-links a {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink3);
+  padding: 0 14px;
+  border-left: 1px solid var(--border);
+  line-height: 44px;
+  transition: color 0.1s;
+}
+
+.footer-links a:hover {
+  color: var(--ink);
 }
 </style>

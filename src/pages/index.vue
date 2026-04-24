@@ -1,169 +1,585 @@
 <script setup lang="ts">
 import AppLayout from '@/shared/components/AppLayout.vue'
 
+/* ── Fake streak grid (14 weeks × 7 days) ─────────────── */
+const LEVELS = [0, 0, 0, 1, 2, 3, 2, 1, 0, 3, 3, 2, 0, 0,
+                0, 1, 2, 2, 3, 3, 1, 0, 2, 3, 3, 3, 1, 0,
+                0, 2, 3, 3, 2, 1, 0, 1, 3, 3, 2, 3, 2, 1,
+                1, 3, 3, 2, 1, 0, 0, 2, 3, 3, 1, 2, 3, 0,
+                2, 3, 2, 1, 0, 1, 2, 3, 3, 2, 0, 3, 3, 2,
+                3, 3, 1, 0, 2, 3, 3, 3, 2, 1, 0, 2, 3, 3,
+                2, 1, 0, 1, 3, 3, 2, 2, 1, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+const grid = Array.from({ length: 7 }, (_, row) =>
+  Array.from({ length: 14 }, (_, col) => LEVELS[row * 14 + col] ?? 0)
+)
+
+const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
 const features = [
-  {
-    icon: 'i-lucide-check-circle',
-    title: 'Positive habits',
-    description: 'Track simple or countable habits with streaks and goal highlights.',
-    accent: 'emerald',
-  },
-  {
-    icon: 'i-lucide-shield-off',
-    title: 'Negative habits',
-    description: 'Log occurrences of habits you want to reduce over time.',
-    accent: 'rose',
-  },
-  {
-    icon: 'i-lucide-bar-chart-2',
-    title: 'Analytics',
-    description: 'Full dashboard with progress, history, and trend summaries.',
-    accent: 'sky',
-  },
-  {
-    icon: 'i-lucide-wifi-off',
-    title: 'Offline-first',
-    description: 'Works without a connection and syncs changes when back online.',
-    accent: 'amber',
-  },
+  { icon: 'i-lucide-check-circle-2', label: 'Build streaks',     color: 'green',  desc: 'Positive habits with daily or custom frequencies. Each check-in builds momentum.' },
+  { icon: 'i-lucide-shield-off',     label: 'Break bad ones',    color: 'red',    desc: 'Track relapses on habits you want to reduce. Awareness is the first step.' },
+  { icon: 'i-lucide-trending-up',    label: 'See the trend',     color: 'blue',   desc: 'Weekly and monthly views show your real completion rate — not just today.' },
+  { icon: 'i-lucide-repeat-2',       label: 'Flexible schedule', color: 'purple', desc: 'Daily, weekly, or N times per week. Works around life, not against it.' },
+  { icon: 'i-lucide-wifi-off',       label: 'Offline-first',     color: 'amber',  desc: 'Full functionality without a connection. Changes sync when you\'re back online.' },
+  { icon: 'i-lucide-smartphone',     label: 'Install it',        color: 'blue',   desc: 'PWA — add it to your home screen. No app store, no friction.' },
+] as const
+
+const steps = [
+  { n: '01', label: 'Create a habit',      desc: 'Name it, set a type and a frequency. Takes 20 seconds.' },
+  { n: '02', label: 'Check in daily',      desc: 'Tap once to mark it done. Or log a relapse if it\'s negative.' },
+  { n: '03', label: 'Watch it compound',   desc: 'Streaks, rates, and history reveal patterns over time.' },
 ] as const
 </script>
 
 <template>
   <AppLayout>
-    <!-- Hero -->
+
+    <!-- Hero (dark) -->
     <section class="hero">
-      <div class="hero__inner">
-        <span class="hero__badge">
-          <i class="i-lucide-construction mr-1" />
-          Work in progress
-        </span>
+      <div class="hero-inner wrap">
 
-        <h1 class="hero__title">Build momentum,<br />one habit at a time.</h1>
+        <div class="hero-copy">
+          <span class="hero-label">Personal habit tracker</span>
+          <h1 class="hero-title">Your habits.<br />Your rules.</h1>
+          <p class="hero-desc">
+            HAH is a no-nonsense habit tracker built for people who want data, not dopamine loops.
+            Positive habits, negative habits, flexible schedules — all offline-ready.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-white" disabled title="Auth coming soon">
+              Get started <i class="i-lucide-arrow-right" />
+            </button>
+            <span class="hero-note">No account required to demo (coming soon)</span>
+          </div>
+        </div>
 
-        <p class="hero__subtitle">
-          HAH is a personal habit tracker. Create positive and negative habits, set frequencies, and
-          watch your streaks grow — with full offline support and real-time sync via Firebase.
-        </p>
+        <div class="hero-visual">
+          <div class="streak-panel">
+            <div class="streak-header">
+              <span class="streak-title">exercise · 14-week streak</span>
+              <span class="streak-chip">demo</span>
+            </div>
+            <div class="streak-grid">
+              <div v-for="(row, ri) in grid" :key="ri" class="streak-row">
+                <span class="streak-day">{{ days[ri] }}</span>
+                <div
+                  v-for="(level, ci) in row"
+                  :key="ci"
+                  class="streak-cell"
+                  :class="`streak-cell--${level}`"
+                />
+              </div>
+            </div>
+            <div class="streak-legend">
+              <span>less</span>
+              <div class="streak-cell streak-cell--0" />
+              <div class="streak-cell streak-cell--1" />
+              <div class="streak-cell streak-cell--2" />
+              <div class="streak-cell streak-cell--3" />
+              <span>more</span>
+            </div>
+          </div>
 
-        <div class="hero__cta">
-          <button class="btn btn--primary" disabled title="Auth coming in the next slice">
-            <i class="i-lucide-log-in mr-1.5" />
-            Get started
-          </button>
-          <span class="hero__cta-note">Authentication coming soon</span>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="hero-stat-value mono">87%</span>
+              <span class="hero-stat-label">completion this month</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-value mono">14</span>
+              <span class="hero-stat-label">day streak</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-value mono">3</span>
+              <span class="hero-stat-label">habits active</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tech ribbon -->
+    <div class="ribbon">
+      <div class="ribbon-inner wrap">
+        <span class="ribbon-item"><i class="i-lucide-wifi-off" /> Offline-first</span>
+        <span class="ribbon-dot" />
+        <span class="ribbon-item"><i class="i-lucide-flame" /> Firebase sync</span>
+        <span class="ribbon-dot" />
+        <span class="ribbon-item"><i class="i-lucide-smartphone" /> PWA installable</span>
+        <span class="ribbon-dot" />
+        <span class="ribbon-item"><i class="i-lucide-lock" /> Auth with Google</span>
+        <span class="ribbon-dot" />
+        <span class="ribbon-item"><i class="i-lucide-code-2" /> Vue 3 + TypeScript</span>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <section class="section-steps">
+      <div class="wrap">
+        <div class="section-eyebrow mono">How it works</div>
+        <div class="steps">
+          <div v-for="s in steps" :key="s.n" class="step">
+            <div class="step-number mono">{{ s.n }}</div>
+            <div class="step-body">
+              <div class="step-label">{{ s.label }}</div>
+              <div class="step-desc">{{ s.desc }}</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Feature grid -->
-    <section class="features">
-      <div class="features__inner">
-        <h2 class="features__heading">What's planned</h2>
-        <ul class="features__grid" role="list">
-          <li v-for="f in features" :key="f.title" class="feature-card" :class="`feature-card--${f.accent}`">
-            <span class="feature-card__icon" aria-hidden="true">
+    <!-- Features -->
+    <section class="section-features">
+      <div class="wrap">
+        <div class="section-eyebrow mono">What's included</div>
+        <div class="features-grid">
+          <div v-for="f in features" :key="f.label" class="feature">
+            <span class="feature-icon" :class="`feature-icon--${f.color}`">
               <i :class="f.icon" />
             </span>
-            <h3 class="feature-card__title">{{ f.title }}</h3>
-            <p class="feature-card__desc">{{ f.description }}</p>
-          </li>
-        </ul>
+            <div class="feature-body">
+              <div class="feature-label">{{ f.label }}</div>
+              <div class="feature-desc">{{ f.desc }}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="wrap cta-inner">
+        <div>
+          <div class="cta-title mono">Start building momentum today.</div>
+          <div class="cta-sub">
+            Free, offline-first, and yours to own.
+            <span class="chip-wip">
+              <i class="i-lucide-circle-alert" /> work in progress
+            </span>
+          </div>
+        </div>
+        <button class="btn-cta" disabled title="Auth coming soon">
+          <i class="i-lucide-log-in" />
+          Create your account
+        </button>
+      </div>
+    </section>
+
   </AppLayout>
 </template>
 
 <style scoped>
-/* Hero */
+/* ── Layout ──────────────────────────────────────────── */
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.mono { font-family: var(--mono); }
+
+/* ── Hero ────────────────────────────────────────────── */
 .hero {
-  @apply py-20 px-4;
+  background: var(--ink);
+  padding: 72px 0 64px;
+  border-bottom: 1px solid #2a2a28;
 }
 
-.hero__inner {
-  @apply max-w-2xl mx-auto flex flex-col items-center text-center gap-6;
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 64px;
+  align-items: center;
 }
 
-.hero__badge {
-  @apply inline-flex items-center text-xs font-medium px-3 py-1 rounded-sm
-    bg-amber-100 text-amber-800 border border-amber-300 font-mono tracking-wide;
+@media (max-width: 860px) {
+  .hero-inner { grid-template-columns: 1fr; }
 }
 
-.hero__title {
-  @apply text-4xl sm:text-5xl font-bold text-slate-900 leading-tight;
+.hero-label {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 20px;
 }
 
-.hero__subtitle {
-  @apply text-lg text-slate-600 max-w-xl;
+.hero-title {
+  font-family: var(--mono);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: #fff;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
 }
 
-.hero__cta {
-  @apply flex flex-col items-center gap-2 mt-2;
+.hero-desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.75;
+  max-width: 420px;
+  margin-bottom: 32px;
 }
 
-.hero__cta-note {
-  @apply text-xs text-slate-500 font-mono;
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-/* Shared button */
-.btn {
-  @apply inline-flex items-center px-5 py-2.5 rounded-sm font-semibold text-sm
-    transition-colors focus-visible:outline-none focus-visible:ring-2;
+.btn-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 18px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  background: #fff;
+  border: 1px solid #fff;
+  color: var(--ink);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: opacity 0.15s;
 }
 
-.btn--primary {
-  @apply bg-indigo-600 text-white hover:bg-indigo-700 focus-visible:ring-indigo-400
-    disabled:opacity-50 disabled:cursor-not-allowed;
+.btn-white:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.hero-note {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.25);
 }
 
-/* Features */
-.features {
-  @apply pb-24 px-4;
+/* ── Streak visual ───────────────────────────────────── */
+.streak-panel {
+  background: #1a1a18;
+  border: 1px solid #2e2e2b;
+  border-radius: 3px;
+  overflow: hidden;
 }
 
-.features__inner {
-  @apply max-w-5xl mx-auto;
+.streak-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid #2e2e2b;
 }
 
-.features__heading {
-  @apply text-center text-sm font-semibold uppercase tracking-widest text-slate-500 mb-8 font-mono;
+.streak-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 500;
 }
 
-.features__grid {
-  @apply grid sm:grid-cols-2 lg:grid-cols-4 gap-4 list-none p-0 m-0;
+.streak-chip {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 1px 7px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
 }
 
-/* Feature card */
-.feature-card {
-  @apply bg-white rounded-sm border border-slate-200 p-5 flex flex-col gap-3
-    shadow-sm hover:shadow-md transition-shadow;
+.streak-grid {
+  padding: 14px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
-.feature-card__icon {
-  @apply w-9 h-9 rounded-sm flex items-center justify-center text-xl border;
+.streak-row {
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
 
-.feature-card__title {
-  @apply font-semibold text-slate-900 text-sm font-mono;
+.streak-day {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.2);
+  width: 22px;
+  text-align: right;
+  margin-right: 4px;
+  flex-shrink: 0;
 }
 
-.feature-card__desc {
-  @apply text-sm text-slate-600 leading-relaxed;
+.streak-cell {
+  width: 14px;
+  height: 14px;
+  border-radius: 1px;
+  flex-shrink: 0;
 }
 
-.feature-card--emerald .feature-card__icon {
-  @apply bg-emerald-100 text-emerald-700 border-emerald-300;
+.streak-cell--0 { background: rgba(255, 255, 255, 0.06); }
+.streak-cell--1 { background: #166534; }
+.streak-cell--2 { background: #15803d; }
+.streak-cell--3 { background: #22c55e; }
+
+.streak-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px 12px;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.2);
 }
 
-.feature-card--rose .feature-card__icon {
-  @apply bg-rose-100 text-rose-700 border-rose-300;
+.streak-legend span { padding: 0 2px; }
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 10px;
+  border: 1px solid #2e2e2b;
+  border-radius: 2px;
+  overflow: hidden;
 }
 
-.feature-card--sky .feature-card__icon {
-  @apply bg-sky-100 text-sky-700 border-sky-300;
+.hero-stat {
+  padding: 12px 14px;
+  border-right: 1px solid #2e2e2b;
+  background: #1a1a18;
 }
 
-.feature-card--amber .feature-card__icon {
-  @apply bg-amber-100 text-amber-700 border-amber-300;
+.hero-stat:last-child { border-right: none; }
+
+.hero-stat-value {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.02em;
 }
+
+.hero-stat-label {
+  display: block;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 2px;
+}
+
+/* ── Tech ribbon ─────────────────────────────────────── */
+.ribbon {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+}
+
+.ribbon-inner {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ribbon-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink2);
+  white-space: nowrap;
+}
+
+.ribbon-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--border2);
+  flex-shrink: 0;
+}
+
+/* ── Section eyebrow ─────────────────────────────────── */
+.section-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink3);
+  margin-bottom: 32px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Steps ───────────────────────────────────────────── */
+.section-steps {
+  padding: 56px 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 640px) {
+  .steps { grid-template-columns: 1fr; gap: 32px; }
+  .step { padding: 0 !important; border-right: none !important; border-bottom: 1px solid var(--border); padding-bottom: 24px !important; }
+  .step:last-child { border-bottom: none; }
+}
+
+.step {
+  display: flex;
+  gap: 20px;
+  padding: 0 32px 0 0;
+  border-right: 1px solid var(--border);
+}
+
+.step:first-child { padding-left: 0; }
+.step:last-child  { border-right: none; padding-right: 0; padding-left: 32px; }
+.step:nth-child(2) { padding-left: 32px; }
+
+.step-number {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--border2);
+  line-height: 1;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.step-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.step-desc {
+  font-size: 13px;
+  color: var(--ink2);
+  line-height: 1.65;
+}
+
+/* ── Features ────────────────────────────────────────── */
+.section-features {
+  padding: 56px 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px 40px;
+}
+
+@media (max-width: 768px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .features-grid { grid-template-columns: 1fr; } }
+
+.feature {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 2px;
+  font-size: 14px;
+  flex-shrink: 0;
+  border: 1px solid;
+  margin-top: 1px;
+}
+
+.feature-icon--green  { background: var(--green-bg);  color: var(--green);  border-color: var(--green-mid); }
+.feature-icon--red    { background: var(--red-bg);    color: var(--red);    border-color: var(--red-mid); }
+.feature-icon--blue   { background: var(--blue-bg);   color: var(--blue);   border-color: var(--blue-mid); }
+.feature-icon--purple { background: var(--purple-bg); color: var(--purple); border-color: var(--purple-mid); }
+.feature-icon--amber  { background: var(--amber-bg);  color: var(--amber);  border-color: var(--amber-mid); }
+
+.feature-label { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.feature-desc  { font-size: 12px; color: var(--ink2); line-height: 1.65; }
+
+/* ── CTA ─────────────────────────────────────────────── */
+.cta {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 56px 0;
+}
+
+.cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+@media (max-width: 640px) {
+  .cta-inner { flex-direction: column; align-items: flex-start; }
+}
+
+.cta-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.cta-sub {
+  font-size: 13px;
+  color: var(--ink2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chip-wip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 8px;
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-mid);
+  color: var(--amber);
+  border-radius: 2px;
+}
+
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 20px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  color: #fff;
+  border-radius: 2px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+
+.btn-cta:disabled { opacity: 0.4; cursor: not-allowed; }
 </style>
