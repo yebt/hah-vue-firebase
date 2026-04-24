@@ -50,7 +50,7 @@ import { RouterLink } from 'vue-router'
   padding: 0 18px;
   border-right: 1px solid var(--border);
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: var(--text-sm);
   font-weight: 600;
   letter-spacing: 0.12em;
   color: var(--ink);
@@ -60,7 +60,7 @@ import { RouterLink } from 'vue-router'
 
 .brand-icon {
   color: var(--blue);
-  font-size: 14px;
+  font-size: var(--text-base);
 }
 
 .links {
@@ -74,7 +74,7 @@ import { RouterLink } from 'vue-router'
   align-items: center;
   padding: 0 16px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 500;
   color: var(--ink2);
   border-right: 1px solid var(--border);
@@ -104,7 +104,7 @@ import { RouterLink } from 'vue-router'
   height: 28px;
   padding: 0 12px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 500;
   background: transparent;
   border: 1px solid var(--border2);
@@ -126,7 +126,7 @@ import { RouterLink } from 'vue-router'
   height: 28px;
   padding: 0 14px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 500;
   background: var(--ink);
   border: 1px solid var(--ink);

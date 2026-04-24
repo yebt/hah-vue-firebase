@@ -85,16 +85,47 @@ Cargadas desde Google Fonts en `main.css`:
 
 ### Escala de tamaños
 
+**Regla obligatoria:** no hardcodear `font-size` en componentes. Toda escala tipográfica debe salir de variables globales definidas en `main.css`.
+
+```css
+--text-xs: 0.75rem; /* 12px */
+--text-xs--line-height: calc(1 / 0.75);
+--text-sm: 0.875rem; /* 14px */
+--text-sm--line-height: calc(1.25 / 0.875);
+--text-base: 1rem; /* 16px */
+--text-base--line-height: calc(1.5 / 1);
+--text-lg: 1.125rem; /* 18px */
+--text-lg--line-height: calc(1.75 / 1.125);
+--text-xl: 1.25rem; /* 20px */
+--text-xl--line-height: calc(1.75 / 1.25);
+--text-2xl: 1.5rem; /* 24px */
+--text-2xl--line-height: calc(2 / 1.5);
+--text-3xl: 1.875rem; /* 30px */
+--text-3xl--line-height: calc(2.25 / 1.875);
+--text-4xl: 2.25rem; /* 36px */
+--text-4xl--line-height: calc(2.5 / 2.25);
+--text-5xl: 3rem; /* 48px */
+--text-5xl--line-height: 1;
+--text-6xl: 3.75rem; /* 60px */
+--text-6xl--line-height: 1;
+--text-7xl: 4.5rem; /* 72px */
+--text-7xl--line-height: 1;
+--text-8xl: 6rem; /* 96px */
+--text-8xl--line-height: 1;
+--text-9xl: 8rem; /* 128px */
+--text-9xl--line-height: 1;
+```
+
 | Uso                         | Tamaño | Peso | Notas                              |
 |-----------------------------|--------|------|------------------------------------|
-| Eyebrow / label / chip      | 10–11px | 500–600 | Uppercase, letter-spacing 0.1–0.14em |
-| Nav links                   | 11–12px | 500 | Mono                               |
-| Body / descriptions         | 12–13px | 400 | Sans, line-height 1.65             |
-| Feature labels / step desc  | 13–14px | 600 / 400 |                               |
-| Hero title                  | 34–48px | 600 | Mono, letter-spacing -0.02 a -0.03em |
-| CTA title                   | 22–24px | 600 | Mono                               |
-| Métricas                    | 20–22px | 600 | Mono, letter-spacing -0.02em       |
-| Paso numérico (01, 02…)     | 32px   | 600 | Mono, color `--border2`            |
+| Eyebrow / label / chip      | `--text-xs` / `--text-sm` | 500–600 | Uppercase, letter-spacing 0.1–0.14em |
+| Nav links                   | `--text-xs` / `--text-sm` | 500 | Mono                               |
+| Body / descriptions         | `--text-sm` / `--text-base` | 400 | Sans, line-height 1.65           |
+| Feature labels / step desc  | `--text-sm` / `--text-base` | 600 / 400 |                           |
+| Hero title                  | `--text-5xl` / `--text-6xl` | 600 | Mono, letter-spacing -0.02 a -0.03em |
+| CTA title                   | `--text-xl` / `--text-2xl` | 600 | Mono                               |
+| Métricas                    | `--text-xl`                | 600 | Mono, letter-spacing -0.02em       |
+| Paso numérico (01, 02…)     | `--text-4xl`              | 600 | Mono, color `--border2`            |
 
 ---
 

@@ -191,7 +191,7 @@ async function handleSignOut() {
   gap: 8px;
   margin-bottom: 28px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: var(--ink2);
 }
 
@@ -214,7 +214,7 @@ async function handleSignOut() {
 
 .auth-eyebrow,
 .panel-eyebrow {
-  font-size: 10px;
+  font-size: var(--text-xs);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -224,9 +224,9 @@ async function handleSignOut() {
 
 .auth-title {
   font-family: var(--mono);
-  font-size: 34px;
+  font-size: var(--text-5xl);
+  line-height: var(--text-5xl--line-height);
   font-weight: 600;
-  line-height: 1.1;
   letter-spacing: -0.03em;
   color: var(--ink);
   margin-bottom: 16px;
@@ -235,7 +235,7 @@ async function handleSignOut() {
 .auth-description,
 .panel-copy,
 .form-note {
-  font-size: 13px;
+  font-size: var(--text-sm);
   line-height: 1.7;
   color: var(--ink2);
 }
@@ -253,7 +253,7 @@ async function handleSignOut() {
   align-items: center;
   gap: 10px;
   color: var(--ink2);
-  font-size: 12px;
+  font-size: var(--text-sm);
 }
 
 .auth-highlights i {
@@ -263,7 +263,8 @@ async function handleSignOut() {
 
 .panel-title {
   font-family: var(--mono);
-  font-size: 20px;
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -284,7 +285,7 @@ async function handleSignOut() {
   align-items: center;
   gap: 12px;
   color: var(--ink3);
-  font-size: 10px;
+  font-size: var(--text-xs);
 }
 
 .form-divider::before,
@@ -301,7 +302,7 @@ async function handleSignOut() {
 }
 
 .field-label {
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 500;
   color: var(--ink2);
 }
@@ -312,7 +313,7 @@ async function handleSignOut() {
   border: 1px solid var(--border);
   background: var(--bg2);
   color: var(--ink);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-family: var(--sans);
   outline: none;
 }
@@ -329,7 +330,7 @@ async function handleSignOut() {
   border: 1px solid var(--red-mid);
   background: var(--red-bg);
   color: var(--red);
-  font-size: 12px;
+  font-size: var(--text-sm);
 }
 
 .panel-actions {
@@ -349,7 +350,7 @@ async function handleSignOut() {
   padding: 0 16px;
   border-radius: 2px;
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: var(--text-sm);
   font-weight: 500;
 }
 
@@ -407,7 +408,8 @@ async function handleSignOut() {
   }
 
   .auth-title {
-    font-size: 28px;
+    font-size: var(--text-3xl);
+    line-height: var(--text-3xl--line-height);
   }
 
   .panel-actions {

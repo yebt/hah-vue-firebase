@@ -203,7 +203,7 @@ const steps = [
 .hero-label {
   display: inline-block;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -213,16 +213,16 @@ const steps = [
 
 .hero-title {
   font-family: var(--mono);
-  font-size: 40px;
+  font-size: var(--text-6xl);
+  line-height: var(--text-6xl--line-height);
   font-weight: 600;
-  line-height: 1.15;
   color: #fff;
   letter-spacing: -0.03em;
   margin-bottom: 20px;
 }
 
 .hero-desc {
-  font-size: 14px;
+  font-size: var(--text-base);
   color: rgba(255, 255, 255, 0.5);
   line-height: 1.75;
   max-width: 420px;
@@ -244,7 +244,7 @@ const steps = [
   height: 36px;
   padding: 0 18px;
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: var(--text-sm);
   font-weight: 500;
   background: #fff;
   border: 1px solid #fff;
@@ -258,7 +258,7 @@ const steps = [
 
 .hero-note {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: rgba(255, 255, 255, 0.25);
 }
 
@@ -280,14 +280,14 @@ const steps = [
 
 .streak-title {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: rgba(255, 255, 255, 0.4);
   font-weight: 500;
 }
 
 .streak-chip {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--text-xs);
   padding: 1px 7px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -310,7 +310,7 @@ const steps = [
 
 .streak-day {
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: var(--text-xs);
   color: rgba(255, 255, 255, 0.2);
   width: 22px;
   text-align: right;
@@ -336,7 +336,7 @@ const steps = [
   gap: 4px;
   padding: 8px 14px 12px;
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: var(--text-xs);
   color: rgba(255, 255, 255, 0.2);
 }
 
@@ -361,7 +361,7 @@ const steps = [
 
 .hero-stat-value {
   display: block;
-  font-size: 20px;
+  font-size: var(--text-xl);
   font-weight: 600;
   color: #fff;
   letter-spacing: -0.02em;
@@ -369,7 +369,7 @@ const steps = [
 
 .hero-stat-label {
   display: block;
-  font-size: 10px;
+  font-size: var(--text-xs);
   color: rgba(255, 255, 255, 0.3);
   margin-top: 2px;
 }
@@ -394,7 +394,7 @@ const steps = [
   align-items: center;
   gap: 6px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: var(--ink2);
   white-space: nowrap;
 }
@@ -409,7 +409,7 @@ const steps = [
 
 /* ── Section eyebrow ─────────────────────────────────── */
 .section-eyebrow {
-  font-size: 10px;
+  font-size: var(--text-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -449,23 +449,23 @@ const steps = [
 .step:nth-child(2) { padding-left: 32px; }
 
 .step-number {
-  font-size: 32px;
+  font-size: var(--text-4xl);
+  line-height: var(--text-4xl--line-height);
   font-weight: 600;
   color: var(--border2);
-  line-height: 1;
   flex-shrink: 0;
   padding-top: 2px;
 }
 
 .step-label {
-  font-size: 14px;
+  font-size: var(--text-base);
   font-weight: 600;
   color: var(--ink);
   margin-bottom: 6px;
 }
 
 .step-desc {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--ink2);
   line-height: 1.65;
 }
@@ -499,7 +499,7 @@ const steps = [
   width: 30px;
   height: 30px;
   border-radius: 2px;
-  font-size: 14px;
+  font-size: var(--text-base);
   flex-shrink: 0;
   border: 1px solid;
   margin-top: 1px;
@@ -511,8 +511,8 @@ const steps = [
 .feature-icon--purple { background: var(--purple-bg); color: var(--purple); border-color: var(--purple-mid); }
 .feature-icon--amber  { background: var(--amber-bg);  color: var(--amber);  border-color: var(--amber-mid); }
 
-.feature-label { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
-.feature-desc  { font-size: 12px; color: var(--ink2); line-height: 1.65; }
+.feature-label { font-size: var(--text-sm); font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.feature-desc  { font-size: var(--text-sm); color: var(--ink2); line-height: 1.65; }
 
 /* ── CTA ─────────────────────────────────────────────── */
 .cta {
@@ -533,7 +533,8 @@ const steps = [
 }
 
 .cta-title {
-  font-size: 24px;
+  font-size: var(--text-2xl);
+  line-height: var(--text-2xl--line-height);
   font-weight: 600;
   color: var(--ink);
   letter-spacing: -0.02em;
@@ -541,7 +542,7 @@ const steps = [
 }
 
 .cta-sub {
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--ink2);
   display: flex;
   align-items: center;
@@ -554,7 +555,7 @@ const steps = [
   align-items: center;
   gap: 5px;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: var(--text-xs);
   font-weight: 500;
   padding: 2px 8px;
   background: var(--amber-bg);
@@ -571,7 +572,7 @@ const steps = [
   height: 38px;
   padding: 0 20px;
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: var(--text-sm);
   font-weight: 500;
   background: var(--ink);
   border: 1px solid var(--ink);

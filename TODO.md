@@ -68,14 +68,22 @@ Implementation backlog for `SPECS.md`, grouped by module and ordered for sequent
 - [ ] Deactivate users.
 - [ ] Reflect user state changes in the app immediately.
 
-## 9. Notifications
+## 9. Settings and registration controls
+
+- [ ] Build a settings area for app-level access and registration policies.
+- [ ] Add a toggle to enable or disable open self-registration.
+- [ ] Generate shareable registration links when open self-registration is disabled.
+- [ ] Validate registration links so invited users can still sign up when public registration is off.
+- [ ] Show current registration mode and link status in the admin/settings UI.
+
+## 10. Notifications
 
 - [ ] Add push notification infrastructure.
 - [ ] Request notification permission.
 - [ ] Schedule or trigger habit reminders.
 - [ ] Handle notification preferences per user.
 
-## 10. Offline and sync
+## 11. Offline and sync
 
 - [ ] Implement offline-first local persistence.
 - [ ] Save habit actions locally before syncing.
@@ -83,7 +91,7 @@ Implementation backlog for `SPECS.md`, grouped by module and ordered for sequent
 - [ ] Resolve sync conflicts and retries.
 - [ ] Reflect online/offline status in the UI.
 
-## 11. Polish and release readiness
+## 12. Polish and release readiness
 
 - [x] Define and document the visual design system in `DESIGN.md`.
 - [x] Build the unauthenticated landing page and responsive marketing navigation.

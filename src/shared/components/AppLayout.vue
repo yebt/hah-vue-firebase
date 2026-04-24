@@ -56,7 +56,7 @@ defineProps<{
   border-bottom: 1px solid var(--amber-mid);
   color: var(--amber);
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 500;
   padding: 8px 16px;
   text-align: center;
@@ -84,7 +84,7 @@ defineProps<{
 
 .footer-brand {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: var(--text-xs);
   font-weight: 600;
   letter-spacing: 0.15em;
   color: var(--ink);
@@ -94,7 +94,7 @@ defineProps<{
 }
 
 .footer-copy {
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: var(--ink3);
   flex: 1;
 }
@@ -105,7 +105,7 @@ defineProps<{
 
 .footer-links a {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: var(--ink3);
   padding: 0 14px;
   border-left: 1px solid var(--border);
