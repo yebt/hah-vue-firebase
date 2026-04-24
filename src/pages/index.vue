@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import DsButton from '@/app/design_system/DsButton.vue'
 import DsSectionEyebrow from '@/app/design_system/DsSectionEyebrow.vue'
 import AppLayout from '@/shared/components/AppLayout.vue'
+import { useAuthSessionStore } from '@/modules/auth/stores/auth-session'
+
+const authSession = useAuthSessionStore()
+authSession.ensureInitialized()
 
 const levelClasses = {
   0: '[background:rgba(255,255,255,0.06)]',
@@ -79,6 +84,14 @@ const steps = [
   { desc: "Tap once to mark it done. Or log a relapse if it's negative.", label: 'Check in daily', n: '02' },
   { desc: 'Streaks, rates, and history reveal patterns over time.', label: 'Watch it compound', n: '03' },
 ] as const
+
+const primaryCtaTo = computed(() => (authSession.isAuthenticated ? '/dashboard' : '/signup'))
+const primaryCtaLabel = computed(() => (authSession.isAuthenticated ? 'Open dashboard' : 'Create account'))
+const secondaryHeroCopy = computed(() =>
+  authSession.isAuthenticated
+    ? 'Your signed-in dashboard is ready. Habit setup is the next module to be connected.'
+    : 'Email registration is live. Google and sign-in are available too.'
+)
 </script>
 
 <template>
@@ -107,14 +120,14 @@ const steps = [
           </p>
 
           <div class="mt-8 flex flex-wrap items-center gap-4">
-            <DsButton size="md" to="/signup" variant="light">
-              Create account
+            <DsButton size="md" :to="primaryCtaTo" variant="light">
+              {{ primaryCtaLabel }}
               <i class="i-lucide-arrow-right" />
             </DsButton>
             <span
               class="[font-family:var(--mono)] [font-size:var(--text-sm)] [line-height:var(--lh-sm)] [color:rgba(255,255,255,0.25)]"
             >
-              Email registration is live. Google and sign-in are available too.
+              {{ secondaryHeroCopy }}
             </span>
           </div>
         </div>
@@ -321,9 +334,9 @@ const steps = [
           </div>
         </div>
 
-        <DsButton to="/signup">
-          <i class="i-lucide-user-plus" />
-          Create account
+        <DsButton :to="primaryCtaTo">
+          <i :class="authSession.isAuthenticated ? 'i-lucide-layout-dashboard' : 'i-lucide-user-plus'" />
+          {{ primaryCtaLabel }}
         </DsButton>
       </div>
     </section>

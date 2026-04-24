@@ -52,7 +52,7 @@ Implementation backlog for `SPECS.md`, grouped by module and ordered for sequent
 
 ## 7. Dashboards and analytics
 
-- [ ] Create the user dashboard.
+- [x] Create the user dashboard.
 - [ ] Add streak, progress, and history views.
 - [ ] Build the full analytics dashboard.
 - [ ] Add charts and summaries for positive and negative habits.

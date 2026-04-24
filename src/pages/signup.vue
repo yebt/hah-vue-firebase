@@ -85,9 +85,10 @@ async function handleSignOut() {
         </p>
 
         <div class="mt-6 flex flex-wrap gap-3 max-sm:flex-col">
+          <DsButton to="/dashboard">Open dashboard</DsButton>
           <DsButton to="/" variant="secondary">Back home</DsButton>
           <DsButton to="/login" variant="secondary">Go to sign in</DsButton>
-          <DsButton type="button" @click="handleSignOut">Sign out</DsButton>
+          <DsButton type="button" variant="secondary" @click="handleSignOut">Sign out</DsButton>
         </div>
       </template>
 
