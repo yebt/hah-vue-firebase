@@ -36,7 +36,7 @@ const features = [
       <div class="hero__inner">
         <span class="hero__badge">
           <i class="i-lucide-construction mr-1" />
-          In active development
+          Work in progress
         </span>
 
         <h1 class="hero__title">Build momentum,<br />one habit at a time.</h1>
@@ -86,7 +86,7 @@ const features = [
 
 .hero__badge {
   @apply inline-flex items-center text-xs font-medium px-3 py-1 rounded-sm
-    bg-sky-100 text-sky-800 border border-sky-300 font-mono tracking-wide;
+    bg-amber-100 text-amber-800 border border-amber-300 font-mono tracking-wide;
 }
 
 .hero__title {
