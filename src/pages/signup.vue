@@ -20,7 +20,7 @@ const registration = reactive({
 const highlights = [
   { icon: 'i-lucide-check', text: 'Email/password self-registration is now available' },
   { icon: 'i-lucide-check', text: 'Firebase Auth signs the new user in immediately' },
-  { icon: 'i-lucide-clock-3', text: 'Admin activation and protected app access come next', tone: 'warning' },
+  { icon: 'i-lucide-clock-3', text: 'Dashboards, protected routes, and role-based access come next', tone: 'warning' },
 ] as const
 
 const submitError = ref('')
@@ -58,7 +58,7 @@ async function handleSignOut() {
 <template>
   <AppLayout bare>
     <DsAuthShell
-      description="Start with email/password and get into the platform as soon as the activation flow is completed. Google sign-in and role-based access already exist on the auth side."
+      description="Start with email/password and create your account right away. New accounts are signed in immediately, while dashboards and protected in-app access come next."
       eyebrow="Registration"
       :highlights="highlights"
       title="Create your HAH account."
@@ -81,7 +81,7 @@ async function handleSignOut() {
           </span>.
         </p>
         <p class="mt-3 [font-size:var(--text-sm)] [line-height:1.7] [color:var(--ink2)]">
-          The next auth slice adds admin activation and protected in-app access.
+          The next auth slice will connect dashboards, protected routes, and role-based access.
         </p>
 
         <div class="mt-6 flex flex-wrap gap-3 max-sm:flex-col">

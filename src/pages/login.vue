@@ -21,7 +21,7 @@ const highlights = [
   { icon: 'i-lucide-check', text: 'Google popup sign-in for supported accounts' },
   { icon: 'i-lucide-check', text: 'Persistent browser session managed by Firebase Auth' },
   { icon: 'i-lucide-check', text: 'Self-registration with email/password' },
-  { icon: 'i-lucide-clock-3', text: 'Activation flow and role-based access coming next', tone: 'warning' },
+  { icon: 'i-lucide-clock-3', text: 'Dashboards, protected routes, and role-based access come next', tone: 'warning' },
 ] as const
 
 const isEmailSubmitting = ref(false)
@@ -62,7 +62,7 @@ async function handleSignOut() {
 <template>
   <AppLayout bare>
     <DsAuthShell
-      description="Existing users can already access their account with email/password or Google. New users can create an account now, while activation flow and protected in-app access are the next auth slices."
+      description="Existing users can already access their account with email/password or Google. New users can create an account now, while dashboards and protected in-app access are the next auth slices."
       eyebrow="Authentication"
       :highlights="highlights"
       title="Sign in to HAH."

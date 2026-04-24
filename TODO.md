@@ -16,11 +16,9 @@ Implementation backlog for `SPECS.md`, grouped by module and ordered for sequent
 - [x] Configure Google sign-in.
 - [x] Implement self-registration.
 - [x] Add a dedicated sign-up page with password confirmation and success state.
-- [ ] Add post-signup admin activation flow.
 - [ ] Add auth state persistence and session restoration.
 - [ ] Implement role-based access for admin and regular users.
 - [ ] Add route guards and protected layouts.
-- [ ] Handle inactive-user access so users can sign in but cannot use the app.
 
 ## 3. Domain model and habit setup
 
@@ -62,6 +60,7 @@ Implementation backlog for `SPECS.md`, grouped by module and ordered for sequent
 
 ## 8. Admin dashboard
 
+- [ ] Create a bootstrap root user with unrestricted admin access.
 - [ ] Build the admin dashboard shell.
 - [ ] List users and show activation status.
 - [ ] Activate users.
@@ -101,3 +100,9 @@ Implementation backlog for `SPECS.md`, grouped by module and ordered for sequent
 - [ ] Polish app-wide UX and visual consistency.
 - [ ] Review responsive behavior on mobile and desktop.
 - [ ] Validate the full flow from signup to tracking and admin control.
+
+## 13. Deferred access-control flow
+
+- [ ] Persist auth user profiles with activation status in Firestore.
+- [ ] Add post-signup admin activation flow.
+- [ ] Handle inactive-user access so users can sign in but cannot use the app.

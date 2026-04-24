@@ -13,14 +13,14 @@ import { signInWithGooglePopup } from '../services/google-auth'
 export const useAuthSessionStore = defineStore('auth-session', () => {
   const user = ref<User | null>(auth.currentUser)
   const isReady = ref(false)
-  let stopObserver: null | (() => void) = null
+  let stopAuthObserver: null | (() => void) = null
 
   function ensureInitialized() {
-    if (stopObserver) {
+    if (stopAuthObserver) {
       return
     }
 
-    stopObserver = onAuthStateChanged(auth, (nextUser) => {
+    stopAuthObserver = onAuthStateChanged(auth, (nextUser) => {
       user.value = nextUser
       isReady.value = true
     })
