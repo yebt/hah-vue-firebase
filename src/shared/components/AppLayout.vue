@@ -9,6 +9,11 @@ defineProps<{
 
 <template>
   <div class="layout">
+    <div class="wip-banner">
+      <i class="i-lucide-triangle-alert" />
+      HAH is a work in progress — features are incomplete and auth is not yet available.
+    </div>
+
     <AppHeader v-if="!bare">
       <template #actions>
         <slot name="header-actions" />
@@ -39,6 +44,22 @@ defineProps<{
   display: flex;
   flex-direction: column;
   background: var(--bg);
+}
+
+.wip-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  background: var(--amber-bg);
+  border-bottom: 1px solid var(--amber-mid);
+  color: var(--amber);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 0 16px;
+  text-align: center;
 }
 
 .main {

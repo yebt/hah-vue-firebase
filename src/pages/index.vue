@@ -41,8 +41,7 @@ const steps = [
       <div class="hero-inner wrap">
 
         <div class="hero-copy">
-          <span class="hero-label">Personal habit tracker</span>
-          <h1 class="hero-title">Your habits.<br />Your rules.</h1>
+          <h1 class="hero-title">Build habits.<br />Break patterns.<br />See the data.</h1>
           <p class="hero-desc">
             HAH is a no-nonsense habit tracker built for people who want data, not dopamine loops.
             Positive habits, negative habits, flexible schedules — all offline-ready.
@@ -213,9 +212,9 @@ const steps = [
 
 .hero-title {
   font-family: var(--mono);
-  font-size: 48px;
+  font-size: 40px;
   font-weight: 600;
-  line-height: 1.1;
+  line-height: 1.15;
   color: #fff;
   letter-spacing: -0.03em;
   margin-bottom: 20px;
