@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { auth } from '@/app/infrastructure/firebase'
 import { signInWithEmailPassword, signOutCurrentUser } from '../services/email-password-auth'
+import { signInWithGooglePopup } from '../services/google-auth'
 
 export const useAuthSessionStore = defineStore('auth-session', () => {
   const user = ref<User | null>(auth.currentUser)
@@ -25,6 +26,10 @@ export const useAuthSessionStore = defineStore('auth-session', () => {
     return signInWithEmailPassword(email, password)
   }
 
+  async function signInWithGoogle() {
+    return signInWithGooglePopup()
+  }
+
   async function signOut() {
     await signOutCurrentUser()
   }
@@ -36,6 +41,7 @@ export const useAuthSessionStore = defineStore('auth-session', () => {
     isAuthenticated,
     isReady,
     signIn,
+    signInWithGoogle,
     signOut,
     user,
   }

@@ -13,7 +13,7 @@ Implementation backlog for `SPECS.md`, grouped by module and ordered for sequent
 
 - [x] Configure email/password login.
 - [x] Add an email/password sign-in page with auth-state feedback and sign-out.
-- [ ] Configure Google sign-in.
+- [x] Configure Google sign-in.
 - [ ] Implement self-registration.
 - [ ] Add post-signup admin activation flow.
 - [ ] Add auth state persistence and session restoration.

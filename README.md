@@ -47,7 +47,10 @@ Set the Vite Firebase variables before running the app:
 - `VITE_FIREBASE_APPID`
 - `VITE_FIREBASE_MEASUREMENTID`
 
-For the current auth slice, enable the **Email/Password** provider in Firebase Authentication.
+For the current auth slice, enable these providers in Firebase Authentication:
+
+- **Email/Password**
+- **Google**
 
 ### Type-Check, Compile and Minify for Production
 
