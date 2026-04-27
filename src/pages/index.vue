@@ -89,7 +89,9 @@ const primaryCtaTo = computed(() => (authSession.isAuthenticated ? '/dashboard' 
 const primaryCtaLabel = computed(() => (authSession.isAuthenticated ? 'Open dashboard' : 'Create account'))
 const secondaryHeroCopy = computed(() =>
   authSession.isAuthenticated
-    ? 'Your signed-in dashboard is ready. Habit setup is the next module to be connected.'
+    ? authSession.isRootUser
+      ? 'Your dashboard is ready and this session is already bootstrapped as root for the upcoming admin shell.'
+      : 'Your signed-in dashboard is ready. Root bootstrap and the admin shell are the next modules.'
     : 'Email registration is live. Google and sign-in are available too.'
 )
 </script>

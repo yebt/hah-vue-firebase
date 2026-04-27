@@ -28,7 +28,21 @@ const createdAtLabel = computed(() => {
   }).format(new Date(creationTime))
 })
 
-const readinessCards = [
+const toneClasses = {
+  amber: '[border-color:var(--amber-mid)] [background:var(--amber-bg)] [color:var(--amber)]',
+  blue: '[border-color:var(--blue-mid)] [background:var(--blue-bg)] [color:var(--blue)]',
+  green: '[border-color:var(--green-mid)] [background:var(--green-bg)] [color:var(--green)]',
+} as const
+
+type ReadinessCard = {
+  description: string
+  icon: string
+  title: string
+  tone: keyof typeof toneClasses
+  value: string
+}
+
+const readinessCards = computed<ReadonlyArray<ReadinessCard>>(() => [
   {
     icon: 'i-lucide-user-check',
     title: 'Authenticated session',
@@ -44,13 +58,14 @@ const readinessCards = [
     tone: 'blue',
   },
   {
-    icon: 'i-lucide-hammer',
-    title: 'Next module',
-    value: 'Habit setup',
-    description: 'Data model, CRUD, and setup forms are the next sequential delivery items.',
-    tone: 'amber',
+    icon: 'i-lucide-shield-check',
+    title: 'Admin bootstrap',
+    value: authSession.isRootUser ? 'Root ready' : 'Awaiting root sign-in',
+    description:
+      'A configured root email now promotes itself automatically so the admin shell can be built next.',
+    tone: authSession.isRootUser ? 'green' : 'amber',
   },
-] as const
+])
 
 const workspacePreview = [
   {
@@ -72,6 +87,10 @@ const workspacePreview = [
 
 const roadmap = [
   {
+    title: 'Build the admin shell',
+    description: 'Now that a root user can exist, the next screen can expose user-management surfaces.',
+  },
+  {
     title: 'Define the habit model',
     description: 'Users, habits, entries, and sync metadata need to exist before the dashboard can show real data.',
   },
@@ -79,16 +98,16 @@ const roadmap = [
     title: 'Create habit CRUD',
     description: 'Positive and negative habits come next so this screen can become actionable.',
   },
-  {
-    title: 'Add the admin entry point',
-    description: 'A bootstrap root user and admin shell will unlock later access-control work.',
-  },
 ] as const
 
 const accountFacts = computed(() => [
   {
     label: 'Session state',
     value: authSession.isAuthenticated ? 'signed in' : 'signed out',
+  },
+  {
+    label: 'Role',
+    value: authSession.isProfileReady ? authSession.userRole : 'loading profile',
   },
   {
     label: 'Identity',
@@ -104,11 +123,9 @@ const accountFacts = computed(() => [
   },
 ])
 
-const toneClasses = {
-  amber: '[border-color:var(--amber-mid)] [background:var(--amber-bg)] [color:var(--amber)]',
-  blue: '[border-color:var(--blue-mid)] [background:var(--blue-bg)] [color:var(--blue)]',
-  green: '[border-color:var(--green-mid)] [background:var(--green-bg)] [color:var(--green)]',
-} as const
+function getToneClass(tone: ReadinessCard['tone']) {
+  return toneClasses[tone]
+}
 </script>
 
 <template>
@@ -137,6 +154,20 @@ const toneClasses = {
             This is the first signed-in home for HAH. Your session, identity, and navigation are now
             connected; the next delivery will plug real habit data into this dashboard.
           </p>
+
+          <div v-if="authSession.isProfileReady" class="mt-5 flex flex-wrap gap-2">
+            <span
+              class="inline-flex items-center gap-1 rounded-[2px] border px-2.5 py-[5px] [font-family:var(--mono)] [font-size:var(--text-xs)] [line-height:var(--lh-xs)] font-medium"
+              :class="
+                authSession.isRootUser
+                  ? '[border-color:var(--purple-mid)] [background:var(--purple-bg)] [color:var(--purple)]'
+                  : '[border-color:var(--blue-mid)] [background:var(--blue-bg)] [color:var(--blue)]'
+              "
+            >
+              <i :class="authSession.isRootUser ? 'i-lucide-shield-check' : 'i-lucide-user-round'" />
+              {{ authSession.isRootUser ? 'root user bootstrapped' : `role: ${authSession.userRole}` }}
+            </span>
+          </div>
 
           <div class="mt-8 flex flex-wrap gap-3">
             <DsButton href="#workspace">Explore the workspace</DsButton>
@@ -196,7 +227,7 @@ const toneClasses = {
             v-for="card in readinessCards"
             :key="card.title"
             class="rounded-[4px] border p-5"
-            :class="toneClasses[card.tone]"
+            :class="getToneClass(card.tone)"
           >
             <div class="flex items-start justify-between gap-3">
               <div>

@@ -60,7 +60,7 @@ Implementation backlog for `SPECS.md`, grouped by module and ordered for sequent
 
 ## 8. Admin dashboard
 
-- [ ] Create a bootstrap root user with unrestricted admin access.
+- [x] Create a bootstrap root user with unrestricted admin access.
 - [ ] Build the admin dashboard shell.
 - [ ] List users and show activation status.
 - [ ] Activate users.

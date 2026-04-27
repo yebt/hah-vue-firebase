@@ -46,11 +46,27 @@ Set the Vite Firebase variables before running the app:
 - `VITE_FIREBASE_MESSAGINGSENDERID`
 - `VITE_FIREBASE_APPID`
 - `VITE_FIREBASE_MEASUREMENTID`
+- `VITE_ROOT_USER_EMAILS` (optional, comma-separated emails that should bootstrap as `root`)
 
 For the current auth slice, enable these providers in Firebase Authentication:
 
 - **Email/Password**
 - **Google**
+
+## Root-user bootstrap
+
+When `VITE_ROOT_USER_EMAILS` is set, any authenticated user whose email matches the configured list is
+persisted in Firestore under `users/{uid}` with the `root` role. This gives the upcoming admin dashboard
+an initial unrestricted account to work with.
+
+Example:
+
+```sh
+VITE_ROOT_USER_EMAILS=owner@example.com,second-admin@example.com
+```
+
+This is a pragmatic bootstrap for the current front-end-heavy app shape. Before production-grade access
+control, role assignment should also be enforced by Firebase security rules and/or a trusted backend.
 
 ### Type-Check, Compile and Minify for Production
 

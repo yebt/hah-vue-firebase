@@ -70,6 +70,12 @@ async function handleSignOut() {
           >
             Next
           </a>
+          <span
+            v-if="authSession.isRootUser"
+            class="flex items-center border-r px-4 [border-color:var(--border)] [font-family:var(--mono)] [font-size:var(--text-xs)] [line-height:var(--lh-xs)] font-semibold uppercase tracking-[0.12em] [color:var(--purple)]"
+          >
+            Root
+          </span>
         </template>
 
         <template v-else>
